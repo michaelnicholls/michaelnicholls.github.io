@@ -1,0 +1,44 @@
+<core:FragmentDefinition
+		    xmlns:core="sap.ui.core"
+		    xmlns:f="sap.ui.layout.form"
+		    xmlns="sap.m">
+	<Dialog title="{/dialogText}">
+		<beginButton>
+			<Button press="onCloseDialog" text="Ok"/>
+		</beginButton>
+		<content>
+			<f:SimpleForm >
+				<f:content>
+					<VBox>
+					<Label text="SAP user password" visible="{/UTdialog}"/>
+					<Input id="pwdABAP" value="{/pwd1}" visible="{/UTdialog}"/>
+					<CheckBox text="Use OS user" selected="{/useOs}" visible="{/UTdialog}"/>
+					<Input id="pwdOS" tooltip="Password for OS user" value="{/pwd2}" visible="{/useOs}"/>
+					<CheckBox text="Use FES" selected="{/useFes}" visible="{/UTdialog}"/>
+					<Input id="FES" tooltip="SID for FES" value ="{/fes}" liveChange="onLiveChange"  maxLength="3" visible="{/useFes}"/>
+					<CheckBox text="Use BES" selected="{/useBes}" visible="{/UTdialog}"/>
+					<Input id="BES" tooltip="SID for BES" value="{/bes}" liveChange="onLiveChange"  maxLength="3" visible="{/useBes}"/>
+					<CheckBox text="Use Solution Manager" selected="{/useSolMan}" visible="{/UTdialog}"/>
+					<Label text="UT version" visible="{/UTdialog}"/>
+					<Select id="selectUT" items="{/UTversions}" visible ="{/UTdialog}" selectedKey="{/ut}">
+									<core:Item key="{key}" text="{text}" />
+					</Select>
+					<CheckBox id="ADM100" selected="{/adm100}" select="onadm100" text="ADM100" visible="false"/>
+					<CheckBox id="CLD400A" selected="{/cld400a}" select="oncld400a" text="CLD400 group A" visible="{/cld400dialog}"/>
+					<CheckBox id="CLD400B" selected="{/cld400b}" select="oncld400b" text="CLD400 group B" visible="{/cld400dialog}"/>
+					<CheckBox id="instructor" selected="{/instructorFlag}" text="Instructor's system?" visible="false"/>
+					<CheckBox id="SSO" selected="false" text="Include SSO instructions?" visible="{/UTdialog}"/>
+					<CheckBox id="HA100" selected="{/ha100}" select="onha100" text="HA100/HA300" visible="{/HAdialog}"/>
+					<CheckBox id="HA400" selected="{/ha400}" select="onha400" text="HA400" visible="{/HAdialog}"/>
+					<Label text="SAC tenant" visible="{/SACdialog}"/>
+					<Select id="selectTenant" items="{/SACtenants}" visible ="{/SACdialog}">
+									<core:Item key="{key}" text="{text}" />
+					</Select>
+
+					</VBox>
+				</f:content>
+			</f:SimpleForm>
+		</content>
+	</Dialog>
+</core:FragmentDefinition>
+

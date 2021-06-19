@@ -1,0 +1,41 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc" 	xmlns:core="sap.ui.core" controllerName="michael.com.schengen.controller.Main" xmlns:u="sap.ui.unified" xmlns:l="sap.ui.layout">
+	<App xmlns="sap.m">
+		<pages>
+		<Page title="{i18n>title}">
+		<content>
+		<l:VerticalLayout>
+       			<FormattedText htmlText="&lt;h2&gt;{i18n>select}&lt;/h2&gt;"/>
+       			<FormattedText htmlText="&lt;h3&gt;{i18n>remember}&lt;/h3&gt;"/>
+       			<FormattedText htmlText="&lt;h3&gt;{i18n>week}&lt;/h3&gt;"/>
+       			<FormattedText htmlText="&lt;h4&gt;{i18n>unofficial}&lt;/h4&gt;"/>
+			<Toolbar>
+			<Button text="{i18n>first}" press="onFirst"/>
+			<Button text="{i18n>save}" press="onSave"/>
+			<Button text="{i18n>load}" visible = "{/saved}" press="onLoad"/>
+			<Button text="{i18n>clear}"  press="onClear"/>
+			</Toolbar>
+			<MessageStrip
+				text="{i18n>dateProblem}"
+				type="Error"
+				showIcon="true"
+				showCloseButton="true"
+				class="sapUiMediumMarginBottom"
+				visible="{/errorFound}">
+			</MessageStrip>
+			<u:CalendarLegend id="legend" standardItems="Today,Selected">
+			<u:items>
+			<u:CalendarLegendItem text="{i18n>firstavailable}" color="black" tooltip="{i18n>available}"/>
+			<u:CalendarLegendItem text="{i18n>available}" color="green" tooltip="{i18n>available}"/>
+			<u:CalendarLegendItem text="{i18n>na}" color="red" tooltip="{i18n>na}"/>
+			</u:items>
+			</u:CalendarLegend>
+			<u:Calendar id="calendar" singleSelection="false" months="12" 
+			select = "onSelect"
+			width="100%" minDate="{/minDate}" maxDate="{/maxDate}"/>
+			
+		</l:VerticalLayout>
+		</content>
+	</Page>
+	</pages>
+	</App>
+</mvc:View>

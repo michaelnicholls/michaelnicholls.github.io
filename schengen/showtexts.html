@@ -1,0 +1,73 @@
+<html>
+Enter your participant number
+<select name="participant" id="participant"></select>
+<button id="go" onclick="output()">Go</button>
+<script>
+var query = window.location.search;
+var params = new URLSearchParams(query);
+var hosts = params.get('hosts');
+if (hosts !== null) {
+    hosts = hosts.split(',');
+};
+var user = params.get('user');
+if (user === null) {
+   user="zzzzzzzzz";
+};
+user = user.substring(0,user.length-2);
+var password = params.get('password');
+if (password === null) {
+   password = "not_supplied";
+};
+for (var i=1; i<=18;i++) {
+  var pad = "";
+  if (i < 10) {
+     pad = "0";
+  };
+  var option = document.createElement("option");
+  option.value = pad+i;
+  option.text = pad+i;
+document.getElementById("participant").appendChild(option);
+};
+document.getElementById("participant").focus();
+function output() {
+var i = parseInt(document.getElementById("participant").value);
+if (hosts !== null) {
+  if (hosts.length > 1) {
+     document.write('<h2>Hosts</h2>');
+    } else {
+     document.write('<h2>Host</h2>');
+    };
+  hosts.forEach(writehost);
+};
+document.write('<h2>User</h2>');
+//for (var i=1; i<18;i++) {
+  var pad = "";
+  if (i < 10) {
+     pad = "0";
+  };
+  writeclick(user+"-0"+pad+i);
+//};
+
+document.write('<h2>Password</h2>');
+writeclick(password);
+};
+function writehost(val) {
+//   document.write('<br>'+val);
+   writeclick(val);
+};
+function writeclick(val) {
+   document.write('<p onclick="clicked('+"'"+val+"'"+')">'+val+' <u>Copy to clipboard</u> </p>');
+};
+function clicked(str) {
+const el = document.createElement('textarea');
+  el.value = str;
+  document.body.appendChild(el);
+  el.select();
+  document.execCommand('copy');
+  document.body.removeChild(el);
+//  alert("Text copied:"+ str);
+};
+</script>
+
+
+</html>
