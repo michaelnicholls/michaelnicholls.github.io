@@ -4,10 +4,12 @@
 		<Page title="{i18n>title}">
 		<content>
 		<l:VerticalLayout>
+			<Panel expandable="true" headerText="{i18n/instructions"}>
        			<FormattedText htmlText="&lt;h2&gt;{i18n>select}&lt;/h2&gt;"/>
        			<FormattedText htmlText="&lt;h3&gt;{i18n>remember}&lt;/h3&gt;"/>
        			<FormattedText htmlText="&lt;h3&gt;{i18n>week}&lt;/h3&gt;"/>
        			<FormattedText htmlText="&lt;h4&gt;{i18n>unofficial}&lt;/h4&gt;"/>
+			</Panel>
 			<Toolbar>
 			<Button text="{i18n>first}" press="onFirst"/>
 			<Button text="{i18n>save}" press="onSave"/>
