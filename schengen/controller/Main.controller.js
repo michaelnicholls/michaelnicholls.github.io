@@ -1,5 +1,3 @@
-	const DAYSPAST = 180;
-
 sap.ui.define([
 	"sap/ui/core/mvc/Controller"
 ], function (Controller) {
@@ -18,7 +16,7 @@ sap.ui.define([
 
 		};
 		var dMin = new Date();
-		dMin.setDate(dMin.getDate() - DAYSPAST);
+		dMin.setDate(dMin.getDate() - 180);
 		data["minDate"] = dMin;
 
 		var dMax = new Date();
