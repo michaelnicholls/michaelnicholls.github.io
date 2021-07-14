@@ -2,7 +2,7 @@ sap.ui.define([
 	"sap/ui/core/mvc/Controller"
 ], function (Controller) {
 	"use strict";
-	var DAYSBEHIND = 180;
+	var DAYSBEHIND, DAYSAHEAD, FIRSTDATE. MAXDAYS, MAXALLOWED ;
 
 	return Controller.extend("michael.com.schengen.controller.Main", {
 
@@ -17,6 +17,12 @@ sap.ui.define([
 			saved: false
 
 		};
+		DAYSBEHIND = 180;
+		DAYSAHEAD = 365;
+		FIRSTDATE = 90;
+		MAXDAYS = 180;
+		MAXALLOWED = 90;
+
 		var dMin = new Date();
 		dMin.setDate(dMin.getDate() - 180);
 		data["minDate"] = dMin;
