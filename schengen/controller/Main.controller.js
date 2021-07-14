@@ -24,15 +24,15 @@ sap.ui.define([
 		MAXALLOWED = 90;
 
 		var dMin = new Date();
-		dMin.setDate(dMin.getDate() - 180);
+		dMin.setDate(dMin.getDate() - DAYSBEHIND);
 		data["minDate"] = dMin;
 
 		var dMax = new Date();
-		dMax.setDate(dMax.getDate() + 365);
+		dMax.setDate(dMax.getDate() + DAYSAHEAD);
 		data["maxDate"] = dMax;
 
 		var dFirst = new Date();
-		dFirst.setDate(dFirst.getDate() - 90);
+		dFirst.setDate(dFirst.getDate() - FIRSTDATE);
 		
 		var dToday = new Date();
 		data["firstDate"] = dToday;
@@ -46,10 +46,10 @@ sap.ui.define([
 		this.getView().setModel(oModel);
 		this.getView().byId("calendar").focusDate(dFirst);
 		var color = "black";
-		for (var i=0;i<365;i++) {
+		for (var i=0;i<DAYSAHEAD;i++) {
 		 	var x = new Date();
 			x.setDate(x.getDate() + i);
-			this.getView().byId("calendar").addSpecialDate(new sap.ui.unified.DateTypeRange({startDate: x, 	color: color, tooltip: "0/180"}));
+			this.getView().byId("calendar").addSpecialDate(new sap.ui.unified.DateTypeRange({startDate: x, 	color: color, tooltip: "0/"+MAXDAYS}));
 			color = "green";
 		};
 		
@@ -103,7 +103,7 @@ sap.ui.define([
 			 	var check = new Date();
 				var from = new Date();
          		 	check.setDate(check.getDate() + i);
-				from.setDate(from.getDate() + i - 180);
+				from.setDate(from.getDate() + i - MAXDAYS);
 				var counter = 0;
 				for (var j=0;j<aSelectedDates.length;j++) {
 					if (aSelectedDates[j].getStartDate() >= from  && aSelectedDates[j].getStartDate() <= check) {
@@ -111,10 +111,10 @@ sap.ui.define([
 					};
 				};
 				
-				if (counter > 90) {
+				if (counter > MAXDAYS) {
 //					this.getView().byId("calendar").addDisabledDate(new sap.ui.unified.DateRange({startDate: check}));
 					this.getView().byId("calendar").removeSelectedDate(new sap.ui.unified.DateRange({startDate: check}));
-					this.getView().byId("calendar").addSpecialDate(new sap.ui.unified.DateTypeRange({startDate: check, 	color: "red", tooltip: counter+"/180"}));
+					this.getView().byId("calendar").addSpecialDate(new sap.ui.unified.DateTypeRange({startDate: check, 	color: "red", tooltip: counter+"/"+MAXDAYS}));
 					errorFound = true;
 				} else {
 					var color ="green";
@@ -123,7 +123,7 @@ sap.ui.define([
 						this.getView().getModel().setProperty("/firstDate",firstDate);
 						color = "black";
 					};
-					this.getView().byId("calendar").addSpecialDate(new sap.ui.unified.DateTypeRange({startDate: check, 	color: color, tooltip: counter+"/180"}));
+					this.getView().byId("calendar").addSpecialDate(new sap.ui.unified.DateTypeRange({startDate: check, 	color: color, tooltip: counter+"/"+MAXDAYS}));
 				};
 				this.getView().getModel().setProperty("/errorFound", errorFound);
 			};
