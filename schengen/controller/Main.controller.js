@@ -2,6 +2,8 @@ sap.ui.define([
 	"sap/ui/core/mvc/Controller"
 ], function (Controller) {
 	"use strict";
+	var DAYSBEHIND = 180;
+
 	return Controller.extend("michael.com.schengen.controller.Main", {
 
 	
