@@ -111,7 +111,7 @@ sap.ui.define([
 					};
 				};
 				
-				if (counter > MAXDAYS) {
+				if (counter > MAXALLOWED) {
 //					this.getView().byId("calendar").addDisabledDate(new sap.ui.unified.DateRange({startDate: check}));
 					this.getView().byId("calendar").removeSelectedDate(new sap.ui.unified.DateRange({startDate: check}));
 					this.getView().byId("calendar").addSpecialDate(new sap.ui.unified.DateTypeRange({startDate: check, 	color: "red", tooltip: counter+"/"+MAXDAYS}));
