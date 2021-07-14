@@ -1,8 +1,9 @@
+	const DAYSPAST = 180;
+
 sap.ui.define([
 	"sap/ui/core/mvc/Controller"
 ], function (Controller) {
 	"use strict";
-	const DAYSPAST = 180;
 	return Controller.extend("michael.com.schengen.controller.Main", {
 
 	
