@@ -2,7 +2,7 @@ sap.ui.define([
 	"sap/ui/core/mvc/Controller"
 ], function (Controller) {
 	"use strict";
-	var DAYSBEHIND, DAYSAHEAD, FIRSTDATE. MAXDAYS, MAXALLOWED ;
+	var DAYSBEHIND, DAYSAHEAD, FIRSTDATE, MAXDAYS, MAXALLOWED ;
 
 	return Controller.extend("michael.com.schengen.controller.Main", {
 
