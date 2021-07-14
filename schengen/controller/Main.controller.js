@@ -4,6 +4,8 @@ sap.ui.define([
 	"use strict";
 	return Controller.extend("michael.com.schengen.controller.Main", {
 
+	const DAYSPAST = 180;
+
 	onInit: function() {
 		var data = {
 			minDate: new Date("2021-01-01"),
@@ -14,7 +16,7 @@ sap.ui.define([
 
 		};
 		var dMin = new Date();
-		dMin.setDate(dMin.getDate() - 180);
+		dMin.setDate(dMin.getDate() - DAYSPAST);
 		data["minDate"] = dMin;
 
 		var dMax = new Date();
