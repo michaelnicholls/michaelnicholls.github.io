@@ -3,14 +3,20 @@ set xfer:clobber on
 get https://michaelnicholls.github.io/ux100/K900140.S4D -o /usr/sap/trans/cofiles
 get https://michaelnicholls.github.io/ux100/K900209.FSD -o /usr/sap/trans/cofiles
 get https://michaelnicholls.github.io/ux100/K900142.S4D -o /usr/sap/trans/cofiles
+get https://michaelnicholls.github.io/ux100/K900143.S4D -o /usr/sap/trans/cofiles
+get https://michaelnicholls.github.io/ux100/K900145.S4D -o /usr/sap/trans/cofiles
 get https://michaelnicholls.github.io/ux100/R900140.S4D -o /usr/sap/trans/data
 get https://michaelnicholls.github.io/ux100/R900209.FSD -o /usr/sap/trans/data
 get https://michaelnicholls.github.io/ux100/R900142.S4D -o /usr/sap/trans/data
+get https://michaelnicholls.github.io/ux100/R900143.S4D -o /usr/sap/trans/data
+get https://michaelnicholls.github.io/ux100/R900145.S4D -o /usr/sap/trans/data
 
 exit
 
 tp addtobuffer S4DK900140 S4D pf=/usr/sap/trans/bin/TP_DOMAIN_S4D.PFL
 tp addtobuffer FSDK900209 S4D pf=/usr/sap/trans/bin/TP_DOMAIN_S4D.PFL
 tp addtobuffer S4DK900142 S4D pf=/usr/sap/trans/bin/TP_DOMAIN_S4D.PFL
+tp addtobuffer S4DK900143 S4D pf=/usr/sap/trans/bin/TP_DOMAIN_S4D.PFL
+tp addtobuffer S4DK900145 S4D pf=/usr/sap/trans/bin/TP_DOMAIN_S4D.PFL
 
 
