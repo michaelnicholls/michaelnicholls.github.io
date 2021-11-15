@@ -13,10 +13,14 @@ get https://michaelnicholls.github.io/ux100/R900145.S4D -o /usr/sap/trans/data
 
 exit
 
-tp addtobuffer S4DK900140 S4D pf=/usr/sap/trans/bin/TP_DOMAIN_S4D.PFL
-tp addtobuffer FSDK900209 S4D pf=/usr/sap/trans/bin/TP_DOMAIN_S4D.PFL
-tp addtobuffer S4DK900142 S4D pf=/usr/sap/trans/bin/TP_DOMAIN_S4D.PFL
-tp addtobuffer S4DK900143 S4D pf=/usr/sap/trans/bin/TP_DOMAIN_S4D.PFL
-tp addtobuffer S4DK900145 S4D pf=/usr/sap/trans/bin/TP_DOMAIN_S4D.PFL
+tp addtobuffer S4DK900140 S4D pf=/usr/sap/trans/bin/TP_DOMAIN_S4X.PFL
+tp addtobuffer FSDK900209 S4D pf=/usr/sap/trans/bin/TP_DOMAIN_S4X.PFL
+tp addtobuffer S4DK900142 S4D pf=/usr/sap/trans/bin/TP_DOMAIN_S4X.PFL
+tp addtobuffer S4DK900143 S4D pf=/usr/sap/trans/bin/TP_DOMAIN_S4X.PFL
+tp addtobuffer S4DK900145 S4D pf=/usr/sap/trans/bin/TP_DOMAIN_S4X.PFL
+
+
+tp IMPORT ALL S4D U1246 pf=/usr/sap/trans/bin/TP_DOMAIN_S4X.PFL 
+
 
 
