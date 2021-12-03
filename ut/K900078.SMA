@@ -1,0 +1,7 @@
+TRAIN-00     K SMQ        1   0   0   0   0   1   0   0   0   6  740   .  0   0   0   0   0 100
+#A
+#/1/                          A   G   D   C   R   7   T   -   Z RELE EX.  _   _   _   _   _ CLI
+SMA f 0000 20211203032006 WDFLBMT0110 APServiceSMA
+SMA e 0000 20211203032008 WDFLBMT0110 APServiceSMA
+SMQ < 0000 20211203032010 WDFLBMT0110 APServiceSMA
+SMA E 0004 20211203032010 WDFLBMT0110 APServiceSMA
