@@ -1,0 +1,7 @@
+https://michaelnicholls.github.io/ut/ut.zip
+
+extract K to d:\usr\sap\trans\cofiles
+extract R to d:\usr\sap\trans\data
+
+
+tp addtobuffer SMAK900078 SMA pf=d:\usr\sap\trans\bin\TP_DOMAIN_SMX.PFL
