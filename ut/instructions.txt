@@ -5,10 +5,12 @@ extract R to d:\usr\sap\trans\data
 
 
 tp addtobuffer SMAK900078 SMA pf=d:\usr\sap\trans\bin\TP_DOMAIN_SMX.PFL
+tp addtobuffer SMAK900080 SMA pf=d:\usr\sap\trans\bin\TP_DOMAIN_SMX.PFL
 
 tp import SMAK900078 SMA pf=d:\usr\sap\trans\bin\TP_DOMAIN_SMX.PFL u2
+tp import SMAK900080 SMA pf=d:\usr\sap\trans\bin\TP_DOMAIN_SMX.PFL u2
 
-use SICF to activate zset_user_name
+use SICF to activate zset_user_name, or use STC01 with task list ZSET_USER_NAME_SICF and variant SETUP
 
 https://smhost.wdf.sap.corp:44381/sap/bc/webdynpro/sap/zset_user_name
 
