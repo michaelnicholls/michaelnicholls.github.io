@@ -1,3 +1,4 @@
 Execute commands.txt as s4dadm
 Use SICF to activate Z_dynamic_tile_srv
+now use STC01
  
