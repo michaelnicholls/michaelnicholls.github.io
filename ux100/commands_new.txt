@@ -1,0 +1,19 @@
+lftp
+set xfer:clobber on
+
+
+get https://michaelnicholls.github.io/ux100/K900169.S4D -o /usr/sap/trans/cofiles
+get https://michaelnicholls.github.io/ux100/K900171.S4D -o /usr/sap/trans/cofiles
+get https://michaelnicholls.github.io/ux100/R900169.S4D -o /usr/sap/trans/data
+get https://michaelnicholls.github.io/ux100/R900171.S4D -o /usr/sap/trans/data
+
+exit
+
+
+tp addtobuffer S4DK900169 S4D pf=/usr/sap/trans/bin/TP_DOMAIN_S4X.PFL
+tp addtobuffer S4DK900171 S4D pf=/usr/sap/trans/bin/TP_DOMAIN_S4X.PFL
+
+tp IMPORT ALL S4D U1246 pf=/usr/sap/trans/bin/TP_DOMAIN_S4X.PFL 
+
+
+

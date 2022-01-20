@@ -1,0 +1,22 @@
+SYSTEMSETUP  K S4Q        3   1   5   0   0   2   0   0   0  13  754   .  0   0   0   0   0 100
+#U
+#/1/                          A   G   -   C   R   7   T   -   Z RELE EX.  _   _   _   _   _ CLI
+S4D f 0000 20220120032503 wdflbmt0102       s4dadm
+S4D e 0000 20220120032506 wdflbmt0102       s4dadm
+S4Q < 0000 20220120032510 wdflbmt0102       s4dadm
+S4D E 0000 20220120032510 wdflbmt0102       s4dadm
+S4P < 0000 20220120032527 wdflbmt0105       s4qadm
+S4Q H 0000 20220120032528 wdflbmt0105       s4qadm
+S4Q A 0004 20220120032528 wdflbmt0105       s4qadm
+S4Q I 0000 20220120032533 wdflbmt0105       s4qadm
+S4Q V 0000 20220120032534 wdflbmt0105       s4qadm
+S4Q R 0000 20220120032546 wdflbmt0105       s4qadm
+S4Q G 0000 20220120032551 wdflbmt0105       s4qadm
+S4P > 0000 20220120032619 wdflbmt0105       s4qadm
+S4P < 0000 20220120032619 wdflbmt0105       s4qadm
+S4Q H 0000 20220120032620 wdflbmt0105       s4qadm
+S4Q A 0004 20220120032620 wdflbmt0105       s4qadm
+S4Q I 0000 20220120032625 wdflbmt0105       s4qadm
+S4Q V 0000 20220120032626 wdflbmt0105       s4qadm
+S4Q R 0000 20220120032638 wdflbmt0105       s4qadm
+S4Q G 0000 20220120032644 wdflbmt0105       s4qadm
