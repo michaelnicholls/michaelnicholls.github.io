@@ -3,6 +3,13 @@ https://michaelnicholls.github.io/ut/ut.zip
 extract K to d:\usr\sap\trans\cofiles
 extract R to d:\usr\sap\trans\data
 
+==============  latest below ==========
+curl -o d:\usr\sap\trans\cofiles\K900078.SMA https://michaelnicholls.github.io/ut/K900078.SMA 
+curl -o d:\usr\sap\trans\cofiles\K900080.SMA https://michaelnicholls.github.io/ut/K900080.SMA 
+curl -o d:\usr\sap\trans\cofiles\K900081.SMA https://michaelnicholls.github.io/ut/K900081.SMA 
+curl -o d:\usr\sap\trans\data\R900078.SMA https://michaelnicholls.github.io/ut/R900078.SMA 
+curl -o d:\usr\sap\trans\data\R900080.SMA https://michaelnicholls.github.io/ut/R900080.SMA 
+curl -o d:\usr\sap\trans\data\R900081.SMA https://michaelnicholls.github.io/ut/R900081.SMA 
 
 tp addtobuffer SMAK900078 SMA pf=d:\usr\sap\trans\bin\TP_DOMAIN_SMX.PFL
 tp addtobuffer SMAK900080 SMA pf=d:\usr\sap\trans\bin\TP_DOMAIN_SMX.PFL
