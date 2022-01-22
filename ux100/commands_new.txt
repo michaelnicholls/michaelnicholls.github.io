@@ -26,5 +26,6 @@ curl -o /usr/sap/trans/data/R900171.S4D  https://michaelnicholls.github.io/ux100
 tp addtobuffer S4DK900169 S4D pf=/usr/sap/trans/bin/TP_DOMAIN_S4X.PFL
 tp addtobuffer S4DK900171 S4D pf=/usr/sap/trans/bin/TP_DOMAIN_S4X.PFL
 
-tp IMPORT ALL S4D U1246 pf=/usr/sap/trans/bin/TP_DOMAIN_S4X.PFL 
+tp IMPORT S4DK900169  S4D U1246 pf=/usr/sap/trans/bin/TP_DOMAIN_S4X.PFL 
+tp IMPORT S4DK900171  S4D U1246 pf=/usr/sap/trans/bin/TP_DOMAIN_S4X.PFL 
 
