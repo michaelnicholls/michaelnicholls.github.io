@@ -14,8 +14,8 @@
                <Image src="https://sap-netweaver-training.appspot.com/background" width="50%" height="auto" id="preview" class="previewImage"/>
               <!-- <Button text="Preview" press="changeImage"/> -->
               
-		<Label text="The Generate button will open  a new browwser window with the generated background. Use the browser's Save as.. feature to save it to your desktop"/>
- <Button text="Generate" press="download" tooltip="This will open in a new browser tab, which you can then save locally"/>
+		<Label text="The Generate button will open a new browser window with the generated background. Use the browser's Save as.. feature to save it to your desktop"/>
+ <Button text="Generate" press="download" tooltip="This will open a new browser tab, which you can then save locally"/>
             <Input value="{/name}" id="name" placeholder="Your Name"  change="changeImage"/>
             <Input value="{/course}" id="title" placeholder="e.g. Course Title" change="changeImage"/>
             <Input value="{/description}" id="subtitle" placeholder="e.g. Course Description" change="changeImage"/>
