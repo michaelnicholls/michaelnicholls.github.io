@@ -1,0 +1,59 @@
+<mvc:View
+    controllerName="michael.background.controller.Main"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:c="sap.ui.core"
+    displayBlock="true"
+    xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+    xmlns="sap.m"
+>
+    <Shell id="shell">
+        <App id="app">
+            <pages>
+                <Page id="page" title="{i18n>title}">
+                    <content>
+               <Image src="https://sap-netweaver-training.appspot.com/background" width="50%" height="auto" id="preview" class="previewImage"/>
+               <Button text="Preview" press="changeImage"/>
+               <Button text="Generate" press="download" tooltip="This will open in a new browser tab, which you can then save locally"/>
+
+            <Input value="{/name}" id="name" placeholder="Your Name"  change="changeImage"/>
+            <Input value="{/course}" id="title" placeholder="e.g. Course Title" change="changeImage"/>
+            <Input value="{/description}" id="subtitle" placeholder="e.g. Course Description" change="changeImage"/>
+            <Label labelFor="selectColour" text="Select text colour"/>
+            <Select id="selectColour" items="{/colours}" change="changeImage">
+			    <c:Item key="{key}" text="{text}" />
+            </Select>
+            <Label labelFor="selectLocation" text="Select text location"/>
+            <Select id="selectLocation" items="{/locations}" change="changeImage">
+			    <c:Item key="{key}" text="{text}" />
+            </Select>
+        <VBox/>
+             <Label text="Select an Image:" class="list_label"/>
+
+        <HBox width="100%" id="hbox0" alignContent="SpaceAround" justifyContent="SpaceAround" renderType="Bare">
+        <items>
+    
+        <Image src="https://sap-netweaver-training.appspot.com/ci/images/0.jpg" width="200px" height="200px" id="image0" press="pickImage"/>
+        <Image src="https://sap-netweaver-training.appspot.com/ci/images/1.jpg" width="200px" height="200px" id="image1" press="pickImage"/>
+        <Image src="https://sap-netweaver-training.appspot.com/ci/images/2.jpg" width="200px" height="200px" id="image2" press="pickImage"/>
+        <Image src="https://sap-netweaver-training.appspot.com/ci/images/3.jpg" width="200px" height="200px" id="image3" press="pickImage"/>
+        <Image src="https://sap-netweaver-training.appspot.com/ci/images/4.jpg" width="200px" height="200px" id="image4" press="pickImage"/>
+        <Image src="https://sap-netweaver-training.appspot.com/ci/images/5.jpg" width="200px" height="200px" id="image5" press="pickImage"/>
+        </items></HBox>
+        <HBox width="100%" id="hbox1" alignContent="SpaceAround" justifyContent="SpaceAround" renderType="Bare">
+        <items>
+        <Image src="https://sap-netweaver-training.appspot.com/ci/images/6.jpg" width="200px" height="200px" id="image6" press="pickImage"/>
+        <Image src="https://sap-netweaver-training.appspot.com/ci/images/7.jpg" width="200px" height="200px" id="image7" press="pickImage"/>
+        <Image src="https://sap-netweaver-training.appspot.com/ci/images/8.jpg" width="200px" height="200px" id="image8" press="pickImage"/>
+        <Image src="https://sap-netweaver-training.appspot.com/ci/images/9.jpg" width="200px" height="200px" id="image9" press="pickImage"/>
+        <Image src="https://sap-netweaver-training.appspot.com/ci/images/10.jpg" width="200px" height="200px" id="image10" press="pickImage"/>
+        <Image src="https://sap-netweaver-training.appspot.com/ci/images/11.jpg" width="200px" height="200px" id="image11" press="pickImage"/>
+    
+    
+        </items>            
+</HBox>
+                    </content>
+                </Page>
+            </pages>
+        </App>
+    </Shell>
+</mvc:View>
