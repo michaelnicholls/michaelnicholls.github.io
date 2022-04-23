@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fake Wordle</title>
+<style>
+h1 {
+ text-align: center;
+}
+#game-board {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.letter-box {
+  border: 2px solid gray;
+  border-radius: 3px;
+  margin: 2px;
+  font-size: 2.5rem;
+  font-weight: 700;
+  font-family: "Arial";
+  font-size: 16;
+
+  height: 3rem;
+  width: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-transform: uppercase;
+}
+
+.filled-box {
+  border: 2px solid black;
+}
+
+.letter-row {
+  display: flex;
+}
+</style>
+</head>
+<body>
+    <h1 id="title">Fake Wordle</h1>
+    
+    <div id="game-board">
+
+    </div>
+<script>
+function initBoard() {
+    let board = document.getElementById("game-board");
+
+    for (let i = 0; i < numRows; i++) {
+        let row = document.createElement("div")
+        row.className = "letter-row"
+        
+        for (let j = 0; j < numLetters; j++) {
+            let box = document.createElement("div")
+            box.className = "letter-box"
+            row.appendChild(box)
+        }
+
+        board.appendChild(row)
+    }
+}
+function insertLetter (pressedKey,colourIn) {
+ 
+	if (nextLetter === numLetters){
+		nextLetter=0;
+		currentString = [];
+		thisLine--;
+	};
+    let colour = "";
+    if (colourIn === "yellow") colour = "#c9b458"
+    if (colourIn === "green") colour = "#6aaa64"
+    if (colourIn === "grey") colour = "#86888a"
+    let row = document.getElementsByClassName("letter-row")[numRows - thisLine]
+    let box = row.children[nextLetter]
+    box.textContent = pressedKey
+    box.classList.add("filled-box")
+    box.style.backgroundColor = colour
+    
+    currentString.push(pressedKey)
+    nextLetter += 1
+}
+function check (guess){
+	
+	let targetArray = Array.from(target);
+	let guessLetters = Array.from(guess);
+
+	for (let i=0;i<numLetters;i++) {
+		let colour = "";
+		let letter = guessLetters[i];
+		let pos = targetArray.indexOf(guessLetters[i]);
+		if (pos === -1) {
+			colour = "grey"
+		} else {
+			if (targetArray[i] === guessLetters[i])	{
+				colour = "green"
+			} else {
+				colour = "yellow"
+			}
+			guessLetters[i] = "#"
+		}
+		insertLetter(letter, colour);
+	}
+}
+let params = new URLSearchParams(window.location.search);
+let numRows = 1;
+let target = "LUCKY?"
+let guesses = [target]
+
+if (params.has("rows")) numRows = params.get("rows")
+if (params.has("target")) target = params.get("target")
+if (params.has("guesses")) guesses = params.get("guesses").split(",")
+if (params.has("title")) {
+	document.title = params.get("title")
+	document.getElementById("title").innerHTML = params.get("title");
+};
+let numLetters = target.length;
+numRows = guesses.length
+
+let nextLetter = 0;
+let thisLine = numRows;
+let currentString = [];
+
+initBoard()
+
+guesses.forEach(check);
+//check("LUCKY?");
+//check("SE36");
+//check("SA38");
+//check("SM38");
+
+</script>
+</body>
+</html>
