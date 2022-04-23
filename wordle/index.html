@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fake Wordle</title>
+    <title>Wordle generator</title>
 <style>
 h1 {
  text-align: center;
@@ -29,7 +29,7 @@ h1 {
   display: flex;
   justify-content: center;
   align-items: center;
-  text-transform: uppercase;
+//  text-transform: uppercase;
 }
 
 .filled-box {
@@ -42,7 +42,7 @@ h1 {
 </style>
 </head>
 <body>
-    <h1 id="title">Fake Wordle</h1>
+    <h1 id="title">Wordle generator</h1>
     
     <div id="game-board">
 
@@ -80,7 +80,7 @@ function insertLetter (pressedKey,colourIn) {
     box.textContent = pressedKey
     box.classList.add("filled-box")
     box.style.backgroundColor = colour
-    box.style.color = "white";
+    box.style.color = "white"
     
     currentString.push(pressedKey)
     nextLetter += 1
@@ -108,27 +108,39 @@ function check (guess){
 	}
 }
 let params = new URLSearchParams(window.location.search);
-let numRows = 1;
-let target = "LUCKY?"
-let guesses = [target]
+if (params.toString().length === 0) {
+	document.write("<form><table>")
+	document.write('<tr><td><label for="target">Target:</label></td>')
+ 	document.write('<td><input type="text" id="target" name="target" value="target"></td></tr>')
+  	document.write('<tr><td><label for="guesses">Guesses:</label></td>')
+  	document.write('<td><input type="text" id="guesses" name="guesses" value="guess1,guess2"></td></tr>')
+  	document.write('<tr><td><label for="title">Title:</label></td>')
+  	document.write('<td><input type="text" id="title" name="title" value="My wordle"></td></tr>')
+  	document.write('<tr><td><input type="submit" value="Submit"></td></tr>');
+	document.write('</table></form>');
+      
+}
+   let numRows = 0;
+   let target = ""
+   let guesses = [target]
 
-if (params.has("rows")) numRows = params.get("rows")
-if (params.has("target")) target = params.get("target")
-if (params.has("guesses")) guesses = params.get("guesses").split(",")
-if (params.has("title")) {
+   if (params.has("rows")) numRows = params.get("rows")
+   if (params.has("target")) target = params.get("target")
+   if (params.has("guesses")) guesses = params.get("guesses").split(",")
+   if (params.has("title")) {
 	document.title = params.get("title")
 	document.getElementById("title").innerHTML = params.get("title");
-};
-let numLetters = target.length;
-numRows = guesses.length
+   };
+   let numLetters = target.length;
+   numRows = guesses.length
 
-let nextLetter = 0;
-let thisLine = numRows;
-let currentString = [];
+   let nextLetter = 0;
+   let thisLine = numRows;
+   let currentString = [];
 
-initBoard()
+   initBoard()
 
-guesses.forEach(check);
+   guesses.forEach(check);
 //check("LUCKY?");
 //check("SE36");
 //check("SA38");
