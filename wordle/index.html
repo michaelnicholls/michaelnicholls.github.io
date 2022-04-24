@@ -43,6 +43,7 @@ h1 {
 </head>
 <body>
     <h1 id="title">Wordle generator</h1>
+	
     <div id="form">
 	<form><table>
 	<tr><td><label for="target">Target:</label></td>
@@ -57,8 +58,8 @@ h1 {
 	<option value="u">Uppercase</option>
 	<option value="l">Lowercase</option>
 	</select>
-  	<tr><td><input type="submit" value="Submit"></td></tr>'
-	</table></form>'
+  	<tr><td><input type="submit" value="Submit"></td></tr>
+	</table></form>
     </div>
     <div id="game-board">
 
@@ -128,15 +129,6 @@ document.getElementById("form").style.display = "none"
 
 if (params.toString().length === 0) {
 	document.getElementById("form").style.display = "block"
-//	document.write("<form><table>")
-//	document.write('<tr><td><label for="target">Target:</label></td>')
-// 	document.write('<td><input type="text" id="target" name="target" value="target"></td></tr>')
-//  	document.write('<tr><td><label for="guesses">Guesses:</label></td>')
-//  	document.write('<td><input type="text" id="guesses" name="guesses" value="guess1,guess2"></td></tr>')
-//  	document.write('<tr><td><label for="title">Title:</label></td>')
-//  	document.write('<td><input type="text" id="title" name="title" value="My wordle"></td></tr>')
-//  	document.write('<tr><td><input type="submit" value="Submit"></td></tr>');
-//	document.write('</table></form>');
       
 }
    let numRows = 0;
