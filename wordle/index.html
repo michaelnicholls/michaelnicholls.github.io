@@ -142,7 +142,6 @@ if (params.toString().length === 0) {
    if (params.has("rows")) numRows = params.get("rows")
    if (params.has("target")) target = params.get("target")
    if (params.has("guesses")) guesses = params.get("guesses").split(",")
-   if (params.has("add")) guesses.push(target)
    if (params.has("title")) {
 	document.title = params.get("title")
 	document.getElementById("title").innerHTML = params.get("title");
@@ -155,6 +154,7 @@ if (params.toString().length === 0) {
 	guesses = params.get("guesses").toLowerCase().split(",")
 	target = target.toLowerCase()
    }
+   if (params.has("add")) guesses.push(target)
    let numLetters = target.length;
    numRows = guesses.length
    if (params.has("extra")) numRows=numRows + parseInt(params.get("extra"))
