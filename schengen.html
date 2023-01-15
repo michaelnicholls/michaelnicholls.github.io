@@ -1,0 +1,215 @@
+<h2>Schengen Calculator</h2>
+Select the dates you were in Schengen, or plan to be. Green dates are potential dates for a visit.
+<br>Red dates indicate a possible problem.Today is marked in blue.
+<br>Sundays have a darker background.
+<br><br>
+<button onclick="save()">Save selected dates</button>
+<label for="datefile">Select a file with saved dates</label>
+<input type="file" name="datefile" id="datefile" />
+<button id="upload-button" onclick="uploadFile()"> Start upload </button>
+<button onclick="main()">Clear all dates</button>
+<table><tbody id="tbody"></tbody>
+</table>
+<div id="before"></div>
+<div id="problems"></div>
+<script>
+var selected=[];
+var selectedMonths=[];
+function clickMonth(e) {
+      var add = (selectedMonths.indexOf(e) < 0);
+	var y = Math.floor(e / 100) ;
+      var m = 1+ e % 100;
+	var d1 = new Date(y, m-1, 1);
+	var d2 = new Date(y, m, 0);
+	var days = 1 + Math.round((d2.getTime() - d1.getTime())/ (1000 * 3600 * 24));
+	for (var i = 1; i <= days;i++) {
+		var mzero = "0";
+		var dzero = "0";
+		if (m >= 10) {mzero ="";}
+		if (i >= 10) {dzero = "";}
+		var ymd = y+"-"+mzero+m+"-"+dzero+i;
+		var id = document.getElementById("id"+ymd);
+		var td = document.getElementById("td"+ymd);
+		var bgc = "initial";
+		if (new Date(ymd).getDay() == 0) {bgc = "black";}
+		if (id !== null) {id.checked = add;td.style.backgroundColor=bgc;}
+		if (add) {
+			var j = selectedMonths.indexOf(e);
+			if (j < 0) {selectedMonths.push(e);}
+			if (selected.indexOf(ymd) == -1) {selected.push(ymd);}
+		} else {
+			var j = selectedMonths.indexOf(e);
+			if ( j >= 0) {selectedMonths.splice(j,1);}
+			j = selected.indexOf(ymd);
+			if (j>=0) {selected.splice(j,1);}
+		}
+	};
+	calculate();
+
+};
+function save(data) {
+ 
+var c = document.createElement("a");
+c.download = "schengen_dates.txt";
+var data = selected.join("\r\n");
+var t = new Blob([data], {
+type: "text/plain"
+});
+c.href = window.URL.createObjectURL(t);
+c.click();
+}
+
+function uploadFile() {
+  
+  let file = document.getElementById("datefile").files[0];
+  if (file) {
+  main();
+  let reader = new FileReader();
+  reader.addEventListener("loadend", () => { 
+	selected = reader.result.split('\r\n');
+	for (var i=0;i<selected.length;i++) {
+		var e = document.getElementById("id"+selected[i]);
+		if (e!==null) {e.checked = true;}
+		
+	}
+	calculate();
+	 });
+	
+  reader.readAsText(file);
+  }
+};
+function onClick(e) {
+  var m = e.id.substr(2);
+  var td = "td"+m;
+  var d = new Date(m);
+
+  document.getElementById(td).style.backgroundColor="initial";
+ if (d.getDay() == 0) { document.getElementById(td).style.backgroundColor="black";}
+  if (e.checked) { 
+		if (selected.indexOf(m) == -1) {selected.push(m);}
+	} else {
+		var i = selected.indexOf(m);
+		selected.splice(i,1);	
+	}
+  calculate();
+}
+function calculate() {
+  var beforetoday = 0;
+  
+  for (var i=0;i<selected.length;i++) {
+	if (selected[i]< today && selected[i]>=first) {beforetoday++;}
+  }
+   for (var i=0;i<daysAhead;i++) {
+	var checkdate = new Date();
+	checkdate = new Date(checkdate.getTime() - checkdate.getTimezoneOffset()*60000);
+	
+	checkdate.setDate(checkdate.getDate() + i);
+	var cd = checkdate.toISOString().substr(0,10);
+	var y = cd.substr(0,4);
+	var m = Math.floor(cd.substr(5,2))-1;
+	var d = cd.substr(8,2);
+	//if (selected[i] >= today) {
+	//	var y = selected[i].substr(0,4);
+	//	var m = Math.floor(selected[i].substr(5,2))-1;
+	//	var d = selected[i].substr(8,2);
+	//var checkdate = new Date(y,m,d);
+		var days = 0;
+		for (var j = 0;j <= daysBack;j++) {
+			var checkfrom = new Date(y,m,d);
+			checkfrom = new Date(checkfrom.getTime() - checkfrom.getTimezoneOffset()*60000);
+			checkfrom.setDate(checkfrom.getDate() - j);
+			var check = checkfrom.toISOString().substr(0,10);
+			if (selected.indexOf(check) >= 0) {days=days+1;}
+		};
+		//document.getElementById("problems").innerHTML=y+":"+m+":"+d+":"+days;
+		var bgc = "lightgreen";
+		if (checkdate.getDay() == 0) {bgc="green";}
+		if (days >= daysMax)  {
+			bgc="#ff4d4d";
+		if (checkdate.getDay()==0) { bgc="darkred";}
+		}
+		//document.getElementById("td"+selected[i]).style.backgroundColor=bgc;
+		var td=document.getElementById("td"+cd);
+		if (td!==null) {td.style.backgroundColor=bgc;}
+	
+		
+//		};
+	}
+  var bcolor = "initial";
+  if (beforetoday > daysMax) {bcolor ="red";}
+  document.getElementById("before").innerHTML="Days before today in the last "+daysBack+": "+beforetoday;
+document.getElementById("before").style.color=bcolor;
+  var td = "td"+today;
+  document.getElementById(td).style.backgroundColor="blue";
+};
+
+const daysBack = 180;
+const daysAhead = 270;
+const daysMax = 90;
+const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+
+var firstDate = new Date();
+firstDate.setDate(firstDate.getDate() - daysBack);
+var firstMonth = 1+firstDate.getMonth();
+var firstYear = firstDate.getFullYear();
+var first = firstDate.toISOString().substr(0,10);
+
+var lastDate = new Date();
+lastDate.setDate(lastDate.getDate() + daysAhead);
+var x = new Date();
+x = new Date(x.getTime() - x.getTimezoneOffset()*60000);
+var today = x.toISOString().substr(0,10);
+main();
+
+function main() {
+firstDate = new Date();
+firstDate.setDate(firstDate.getDate() - daysBack);
+firstMonth = 1+firstDate.getMonth();
+firstYear = firstDate.getFullYear();
+first = firstDate.toISOString().substr(0,10);
+
+lastDate = new Date();
+lastDate.setDate(lastDate.getDate() + daysAhead);
+x = new Date();
+x = new Date(x.getTime() - x.getTimezoneOffset()*60000);
+today = x.toISOString().substr(0,10);
+selected=[];
+selectedMonths=[];
+
+var tab="<table><tr><td></td>";
+for (var i = 1;i <=31;i++) {
+	tab+="<td><center>"+i+"</center></td>";
+}
+for (var j=0;j< ((daysAhead+daysBack)/30);j++) {
+	var k = firstMonth+j;
+	var zero="0";
+	if (k > 12) { k = k-12; if (k==1) {firstYear=firstYear+1;}}
+	if (k >= 10) { zero = "";}
+
+	var d = new Date(firstYear+"-"+zero+k+"-01");
+	var dd = months[d.getMonth()]+" "+d.getFullYear();
+	tab+='</tr><tr><td><span onclick="clickMonth('+(d.getMonth()+(d.getFullYear()*100))+')" >'+dd+"</span></td>";
+	for (var i = 1;i <=31;i++) {
+		var zero = "0";
+		if (i >=10) {zero = "";}
+		var checkdate =d.toISOString().substr(0,8)+zero+i;
+		var checkmonth = new Date(checkdate).getMonth();
+		var id = "id"+checkdate;
+		var tid = "td"+checkdate;
+		var style="";
+		if (checkdate == today) {style='style="background-color:blue"';}
+		if (checkdate > today) {style='style="background-color:lightgreen"';}
+		if (new Date(checkdate).getDay() == 0) {
+			style='style="background-color:darkgreen"';
+			if (checkdate < today) {style='style="background-color:black"';}
+		}
+		if (checkmonth == d.getMonth() && checkdate >= first ) {
+			tab+='<td id="'+tid+'"'+style+' ><input id="'+id+'" onclick="onClick(this)" type="checkbox"></input></td>';
+		} else { tab+="<td></td>"; }
+	}
+}
+tab+="</tr></table>";
+document.getElementById("tbody").innerHTML = tab; 
+document.getElementById("before").innerHTML="Days before today in the last "+daysBack+": 0";
+}
+</script>
