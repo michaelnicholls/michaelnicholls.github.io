@@ -5,7 +5,7 @@ Select the dates you were in Schengen, or plan to be. Green dates are potential 
 <br><br>
 <button onclick="save()">Save selected dates</button>
 <label for="datefile">Select a file with saved dates</label>
-<input type="file" name="datefile" id="datefile" onchange="fileSelected()"/>
+<input type="file" name="datefile" id="datefile" accept=".txt" onchange="fileSelected()"/>
 <button id="upload-button"  onclick="uploadFile()" > Start upload </button>
 <button onclick="main()">Clear all dates</button>
 <table><tbody id="tbody"></tbody>
@@ -55,7 +55,7 @@ function fileSelected() {
 function save(data) {
  
 var c = document.createElement("a");
-c.download = "schengen_dates.txt";
+c.download = "schengen_dates_"+new Date().getTime()+".txt";
 var data = selected.join("\r\n");
 var t = new Blob([data], {
 type: "text/plain"
@@ -106,9 +106,11 @@ function calculate() {
   }
    for (var i=0;i<daysAhead;i++) {
 	var checkdate = new Date();
+	checkdate.setDate(checkdate.getDate() + i);
+	var dow = checkdate.getDay();
 	checkdate = new Date(checkdate.getTime() - checkdate.getTimezoneOffset()*60000);
 	
-	checkdate.setDate(checkdate.getDate() + i);
+	
 	var cd = checkdate.toISOString().substr(0,10);
 	var y = cd.substr(0,4);
 	var m = Math.floor(cd.substr(5,2))-1;
@@ -128,10 +130,10 @@ function calculate() {
 		};
 		//document.getElementById("problems").innerHTML=y+":"+m+":"+d+":"+days;
 		var bgc = "lightgreen";
-		if (checkdate.getDay() == 0) {bgc="green";}
+		if (dow == 0) {bgc="green";}
 		if (days >= daysMax)  {
 			bgc="#ff4d4d";
-		if (checkdate.getDay()==0) { bgc="darkred";}
+		if (dow==0) { bgc="darkred";}
 		}
 		//document.getElementById("td"+selected[i]).style.backgroundColor=bgc;
 		var td=document.getElementById("td"+cd);
