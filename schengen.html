@@ -2,6 +2,8 @@
 Select the dates you were in Schengen, or plan to be. Green dates are potential dates for a visit.
 <br>Red dates indicate a possible problem.Today is marked in blue.
 <br>Sundays have a darker background.
+<br>Clicking a month will set/unset all the dates in that month.
+Double-clicking a Sunday will set/unset all the days for that week.
 <br><br>
 <button onclick="save()">Save selected dates</button>
 <label for="datefile">Select a file with saved dates</label>
@@ -16,6 +18,7 @@ Select the dates you were in Schengen, or plan to be. Green dates are potential 
 document.getElementById("upload-button").style.visibility="hidden";
 var selected=[];
 var selectedMonths=[];
+var selectedWeeks=[];
 function clickMonth(e) {
       var add = (selectedMonths.indexOf(e) < 0);
 	var y = Math.floor(e / 100) ;
@@ -51,6 +54,31 @@ function clickMonth(e) {
 function fileSelected() {
   document.getElementById("upload-button").style.visibility = "visible";
 
+};
+function selectweek(w) {
+     var add = (selectedWeeks.indexOf(w) < 0);
+	var d = new Date(w);
+	d = new Date(d.getTime() - d.getTimezoneOffset()*60000);
+	for (var i = 0; i < 7;i++) {
+		var d1 = new Date(d.getTime() + 86400000*i);
+		var ymd = d1.toISOString().substr(0,10);
+		var id = document.getElementById("id"+ymd);
+		var td = document.getElementById("td"+ymd);
+		var bgc = "initial";
+		if (i == 0) {bgc = "black";}
+		if (id !== null) {id.checked = add;td.style.backgroundColor=bgc;}
+		if (add) {
+			var j = selectedWeeks.indexOf(w);
+			if (j < 0) {selectedWeeks.push(w);}
+			if (selected.indexOf(ymd) == -1) {selected.push(ymd);}
+		} else {
+			var j = selectedWeeks.indexOf(w);
+			if ( j >= 0) {selectedWeeks.splice(j,1);}
+			j = selected.indexOf(ymd);
+			if (j>=0) {selected.splice(j,1);}
+		}
+	};
+	calculate();
 };
 function save(data) {
  
@@ -182,7 +210,7 @@ x = new Date(x.getTime() - x.getTimezoneOffset()*60000);
 today = x.toISOString().substr(0,10);
 selected=[];
 selectedMonths=[];
-
+selectedWeeks=[];
 var tab="<table><tr><td></td>";
 for (var i = 1;i <=31;i++) {
 	tab+="<td><center>"+i+"</center></td>";
@@ -205,13 +233,15 @@ for (var j=0;j< ((daysAhead+daysBack)/30);j++) {
 		var tid = "td"+checkdate;
 		var style="";
 		if (checkdate > today) {style='style="background-color:lightgreen"';}
+		var dbl="";
 		if (new Date(checkdate).getDay() == 0) {
+			dbl='ondblclick="selectweek('+"'"+checkdate+"')"+'"';
 			style='style="background-color:darkgreen"';
 			if (checkdate < today) {style='style="background-color:black"';}
 		}
 		if (checkdate == today) {style='style="background-color:blue"';}
 		if (checkmonth == d.getMonth() && checkdate >= first ) {
-			tab+='<td id="'+tid+'"'+style+' ><input id="'+id+'" onclick="onClick(this)" type="checkbox"></input></td>';
+			tab+='<td '+dbl+' id="'+tid+'"'+style+' ><input id="'+id+'" onclick="onClick(this)" type="checkbox"></input></td>';
 		} else { tab+="<td></td>"; }
 	}
 }
