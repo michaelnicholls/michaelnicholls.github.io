@@ -1,10 +1,15 @@
 <h2>Schengen Calculator</h2>
-Select the dates you were in Schengen, or plan to be. Green dates are potential dates for a visit.
-<br>Red dates indicate a possible problem.Today is marked in blue.
-<br>Sundays have a darker background.
+Select the dates you were in Schengen, or plan to be.
 <br>Clicking a month will set/unset all the dates in that month.
 Double-clicking a Sunday will set/unset all the days for that week.
-<br><br>
+
+<br><br><table><tr>
+<td>Today:</td><td style="background-color: blue"><input type="checkbox" /></td>
+<td>Potential dates:</td><td style="background-color: green"><input type="checkbox" /></td><td style="background-color: lightgreen"><input type="checkbox" /></td>
+<td>Possible problem dates:</td><td style="background-color: darkred"><input type="checkbox" /></td><td style="background-color: red"><input type="checkbox" /></td>
+<td>Sundays:</td><td style="background-color: black"><input type="checkbox" /></td>
+</tr></table>
+<br>
 <button onclick="save()">Save selected dates</button>
 <label for="datefile">Select a file with saved dates</label>
 <input type="file" name="datefile" id="datefile" accept=".txt" onchange="fileSelected()"/>
@@ -12,6 +17,7 @@ Double-clicking a Sunday will set/unset all the days for that week.
 <button onclick="main()">Clear all dates</button>
 <table><tbody id="tbody"></tbody>
 </table>
+<br>
 <div id="before"></div>
 <div id="problems"></div>
 <script>
@@ -214,6 +220,7 @@ selectedWeeks=[];
 var tab="<table><tr><td></td>";
 for (var i = 1;i <=31;i++) {
 	tab+="<td><center>"+i+"</center></td>";
+	if (i%5 ==0) {tab+="<td>|</td>";}
 }
 for (var j=0;j< ((daysAhead+daysBack)/30);j++) {
 	var k = firstMonth+j;
@@ -243,6 +250,7 @@ for (var j=0;j< ((daysAhead+daysBack)/30);j++) {
 		if (checkmonth == d.getMonth() && checkdate >= first ) {
 			tab+='<td '+dbl+' id="'+tid+'"'+style+' ><input id="'+id+'" onclick="onClick(this)" type="checkbox"></input></td>';
 		} else { tab+="<td></td>"; }
+		if (i%5 ==0) {tab+="<td>|</td>";}
 	}
 }
 tab+="</tr></table>";
