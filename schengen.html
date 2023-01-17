@@ -1,12 +1,12 @@
 <h2>Schengen Calculator</h2>
 Select the dates you were in Schengen, or plan to be.
 <br>Clicking a month will set/unset all the dates in that month.
-Double-clicking a Sunday will set/unset all the days for that week.
+Double-clicking a Sunday will set/unset that week.
 
 <br><br><table><tr>
 <td>Today:</td><td style="background-color: blue"><input type="checkbox" /></td>
 <td>Potential dates:</td><td style="background-color: green"><input type="checkbox" /></td><td style="background-color: lightgreen"><input type="checkbox" /></td>
-<td>Possible problem dates:</td><td style="background-color: darkred"><input type="checkbox" /></td><td style="background-color: red"><input type="checkbox" /></td>
+<td>Possible problem dates:</td><td style="background-color: darkred"><input type="checkbox" /></td><td style="background-color: #ff4d4d"><input type="checkbox" /></td>
 <td>Sundays:</td><td style="background-color: black"><input type="checkbox" /></td>
 </tr></table>
 <br>
@@ -19,7 +19,7 @@ Double-clicking a Sunday will set/unset all the days for that week.
 </table>
 <br>
 <div id="before"></div>
-<div id="problems"></div>
+<div id="first"></div>
 <a href="mailto:i016416@gmail.com?subject=Schengen calculator feedback&body=Hi Michael" >Send feedback</a>
 <script>
 document.getElementById("upload-button").style.visibility="hidden";
@@ -134,10 +134,15 @@ function onClick(e) {
   calculate();
 }
 function calculate() {
+  selected = selected.sort();
+  
   var beforetoday = 0;
+  var firstFuture = "";
+  var daysAtFirst = 0;
   
   for (var i=0;i<selected.length;i++) {
 	if (selected[i]< today && selected[i]>=first) {beforetoday++;}
+      if (selected[i] >= today && firstFuture=="") {firstFuture = selected[i];}
   }
    for (var i=0;i<daysAhead;i++) {
 	var checkdate = new Date();
@@ -166,6 +171,7 @@ function calculate() {
 		//document.getElementById("problems").innerHTML=y+":"+m+":"+d+":"+days;
 		var bgc = "lightgreen";
 		if (dow == 0) {bgc="green";}
+		if (cd == firstFuture) { daysAtFirst = days-1;}
 		if (days >= daysMax)  {
 			bgc="#ff4d4d";
 		if (dow==0) { bgc="darkred";}
@@ -174,13 +180,21 @@ function calculate() {
 		var td=document.getElementById("td"+cd);
 		if (td!==null) {td.style.backgroundColor=bgc;}
 	
-		
+		var bcolor = "initial";
+ 		if (beforetoday > daysMax) {bcolor ="red";}
+		if (firstFuture !== "") {
+			document.getElementById("first").hidden = false;
+   			document.getElementById("first").innerHTML = "Days used before the first future selected date:("+firstFuture+"): "+daysAtFirst;
+			document.getElementById("first").style.color = bcolor;
+		} else {
+			document.getElementById("first").hidden = true;
+		}
 //		};
 	}
   var bcolor = "initial";
   if (beforetoday > daysMax) {bcolor ="red";}
-  document.getElementById("before").innerHTML="Days before today in the last "+daysBack+": "+beforetoday;
-document.getElementById("before").style.color=bcolor;
+  document.getElementById("before").innerHTML="Days used before today in the last "+daysBack+": "+beforetoday;
+	document.getElementById("before").style.color=bcolor;
   var td = "td"+today;
   document.getElementById(td).style.backgroundColor="blue";
 };
@@ -241,9 +255,10 @@ for (var j=0;j< ((daysAhead+daysBack)/30);j++) {
 		var tid = "td"+checkdate;
 		var style="";
 		if (checkdate > today) {style='style="background-color:lightgreen"';}
-		var dbl="";
+		var 	dbl="";
+
 		if (new Date(checkdate).getDay() == 0) {
-			dbl='ondblclick="selectweek('+"'"+checkdate+"')"+'"';
+			dbl = 'ondblclick="selectweek('+"'"+checkdate+"')"+'"';
 			style='style="background-color:darkgreen"';
 			if (checkdate < today) {style='style="background-color:black"';}
 		}
@@ -256,6 +271,7 @@ for (var j=0;j< ((daysAhead+daysBack)/30);j++) {
 }
 tab+="</tr></table>";
 document.getElementById("tbody").innerHTML = tab; 
-document.getElementById("before").innerHTML="Days before today in the last "+daysBack+": 0";
+document.getElementById("first").hidden = true;
+document.getElementById("before").innerHTML="Days used before today in the last "+daysBack+": 0"
 }
 </script>
