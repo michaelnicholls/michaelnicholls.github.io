@@ -8,6 +8,7 @@ Double-clicking a Sunday will set/unset that week.
 <td>Potential dates:</td><td style="background-color: green"><input type="checkbox" /></td><td style="background-color: lightgreen"><input type="checkbox" /></td>
 <td>Possible problem dates:</td><td style="background-color: darkred"><input type="checkbox" /></td><td style="background-color: #ff4d4d"><input type="checkbox" /></td>
 <td>Sundays:</td><td style="background-color: black"><input type="checkbox" /></td>
+<td>First available date after today:</td><td style="background-color: yellow"><input type="checkbox" /></td>
 </tr></table>
 <br>
 <button onclick="save()">Save selected dates</button>
@@ -139,6 +140,8 @@ function calculate() {
   var beforetoday = 0;
   var firstFuture = "";
   var daysAtFirst = 0;
+      firstAvailable = "";
+  
   
   for (var i=0;i<selected.length;i++) {
 	if (selected[i]< today && selected[i]>=first) {beforetoday++;}
@@ -171,11 +174,13 @@ function calculate() {
 		//document.getElementById("problems").innerHTML=y+":"+m+":"+d+":"+days;
 		var bgc = "lightgreen";
 		if (dow == 0) {bgc="green";}
+ 
 		if (cd == firstFuture) { daysAtFirst = days-1;}
 		if (days >= daysMax)  {
 			bgc="#ff4d4d";
 		if (dow==0) { bgc="darkred";}
 		}
+		if (bgc.includes("green") && firstAvailable == "" && cd > today) {firstAvailable = cd; bgc="yellow";}
 		//document.getElementById("td"+selected[i]).style.backgroundColor=bgc;
 		var td=document.getElementById("td"+cd);
 		if (td!==null) {td.style.backgroundColor=bgc;}
@@ -215,9 +220,12 @@ lastDate.setDate(lastDate.getDate() + daysAhead);
 var x = new Date();
 x = new Date(x.getTime() - x.getTimezoneOffset()*60000);
 var today = x.toISOString().substr(0,10);
+  var firstAvailable = "";
+
 main();
 
 function main() {
+firstAvailable = "";
 firstDate = new Date();
 firstDate.setDate(firstDate.getDate() - daysBack);
 firstMonth = 1+firstDate.getMonth();
@@ -263,6 +271,7 @@ for (var j=0;j< ((daysAhead+daysBack)/30);j++) {
 			if (checkdate < today) {style='style="background-color:black"';}
 		}
 		if (checkdate == today) {style='style="background-color:blue"';}
+		if (checkdate > today && firstAvailable == "") {style='style="background-color:yellow"';firstAvailable = checkdate;}
 		if (checkmonth == d.getMonth() && checkdate >= first ) {
 			tab+='<td '+dbl+' id="'+tid+'"'+style+' ><input id="'+id+'" onclick="onClick(this)" type="checkbox"></input></td>';
 		} else { tab+="<td></td>"; }
