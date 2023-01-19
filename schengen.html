@@ -5,10 +5,10 @@ Double-clicking a Sunday will set/unset that week.
 
 <table><tr>
 <td>Today:</td><td style="background-color: blue"><input type="checkbox" /></td>
-<td>Potential dates:</td><td style="background-color: green"><input type="checkbox" /></td><td style="background-color: lightgreen"><input type="checkbox" /></td>
-<td>Possible problem dates:</td><td style="background-color: darkred"><input type="checkbox" /></td><td style="background-color: #ff4d4d"><input type="checkbox" /></td>
-<td>Sundays:</td><td style="background-color: black"><input type="checkbox" /></td>
-<td>First available date after today:</td><td style="background-color: orange"><input type="checkbox" /></td>
+<td>&nbsp;&nbsp;Potential dates:</td><td style="background-color: green"><input type="checkbox" /></td><td style="background-color: lightgreen"><input type="checkbox" /></td>
+<td>&nbsp;&nbsp;Possible problem dates:</td><td style="background-color: darkred"><input type="checkbox" /></td><td style="background-color: #ff4d4d"><input type="checkbox" /></td>
+<td>&nbsp;&nbsp;Sundays:</td><td style="background-color: black"><input type="checkbox" /></td>
+<td>&nbsp;&nbsp;First available date after today:</td><td style="background-color: orange"><input type="checkbox" /></td>
 </tr></table>
 
 <button onclick="save()">Save selected dates</button>
@@ -66,10 +66,11 @@ function fileSelected() {
 function selectweek(w) {
      var add = (selectedWeeks.indexOf(w) < 0);
 	var d = new Date(w);
-	d = new Date(d.getTime() - d.getTimezoneOffset()*60000);
+//	d = new Date(d.getTime() - d.getTimezoneOffset()*60000);
 	for (var i = 0; i < 7;i++) {
 		var d1 = new Date(d.getTime() + 86400000*i);
-		var ymd = d1.toISOString().substr(0,10);
+		//var ymd = d1.toISOString().substr(0,10);
+		ymd = getYMD(d1);
 		var id = document.getElementById("id"+ymd);
 		var td = document.getElementById("td"+ymd);
 		var bgc = "initial";
@@ -151,10 +152,9 @@ function calculate() {
 	var checkdate = new Date();
 	checkdate.setDate(checkdate.getDate() + i);
 	var dow = checkdate.getDay();
-	checkdate = new Date(checkdate.getTime() - checkdate.getTimezoneOffset()*60000);
-	
-	
-	var cd = checkdate.toISOString().substr(0,10);
+//	checkdate = new Date(checkdate.getTime() - checkdate.getTimezoneOffset()*60000);
+	//var cd = checkdate.toISOString().substr(0,10);
+	var cd = getYMD(checkdate);
 	var y = cd.substr(0,4);
 	var m = Math.floor(cd.substr(5,2))-1;
 	var d = cd.substr(8,2);
@@ -164,19 +164,21 @@ function calculate() {
 	//	var d = selected[i].substr(8,2);
 	//var checkdate = new Date(y,m,d);
 		var days = 0;
-		for (var j = 0;j <= daysBack;j++) {
+		for (var j = 1;j <= daysBack;j++) {
 			var checkfrom = new Date(y,m,d);
-			checkfrom = new Date(checkfrom.getTime() - checkfrom.getTimezoneOffset()*60000);
+			//checkfrom = new Date(checkfrom.getTime() - checkfrom.getTimezoneOffset()*60000);
 			checkfrom.setDate(checkfrom.getDate() - j);
-			var check = checkfrom.toISOString().substr(0,10);
+			//var check = checkfrom.toISOString().substr(0,10);
+			var check = getYMD(checkfrom);
 			if (selected.indexOf(check) >= 0) {days=days+1;}
 		};
+//console.log(cd+" "+days);
 		//document.getElementById("problems").innerHTML=y+":"+m+":"+d+":"+days;
 		var bgc = "lightgreen";
 		if (dow == 0) {bgc="green";}
  
-		if (cd == firstFuture) { daysAtFirst = days-1;}
-		if (days > daysMax)  {
+		if (cd == firstFuture) { daysAtFirst = days;}
+		if (days >= daysMax)  {
 			bgc="#ff4d4d";
 		if (dow==0) { bgc="darkred";}
 		}
@@ -213,30 +215,44 @@ var firstDate = new Date();
 firstDate.setDate(firstDate.getDate() - daysBack);
 var firstMonth = 1+firstDate.getMonth();
 var firstYear = firstDate.getFullYear();
-var first = firstDate.toISOString().substr(0,10);
+//var first = firstDate.toISOString().substr(0,10);
+ var first = getYMD(firstDate);
 
 var lastDate = new Date();
 lastDate.setDate(lastDate.getDate() + daysAhead);
 var x = new Date();
-x = new Date(x.getTime() - x.getTimezoneOffset()*60000);
-var today = x.toISOString().substr(0,10);
+//x = new Date(x.getTime() - x.getTimezoneOffset()*60000);
+//var today = x.toISOString().substr(0,10);
+  var today = getYMD(x);
   var firstAvailable = "";
 
 main();
-
+function getYMD(somedate) {
+  var y = somedate.getFullYear();
+  var m = somedate.getMonth()+1;
+  var d = somedate.getDate();
+  var mz = "0";
+  var dz = "0";
+  if (m>=10) {mz="";}
+  if (d>=10) {dz="";}
+  return y+"-"+mz+m+"-"+dz+d;
+};
 function main() {
 firstAvailable = "";
 firstDate = new Date();
 firstDate.setDate(firstDate.getDate() - daysBack);
 firstMonth = 1+firstDate.getMonth();
 firstYear = firstDate.getFullYear();
-first = firstDate.toISOString().substr(0,10);
+//first = firstDate.toISOString().substr(0,10);
+
+first = getYMD(firstDate);
 
 lastDate = new Date();
 lastDate.setDate(lastDate.getDate() + daysAhead);
 x = new Date();
-x = new Date(x.getTime() - x.getTimezoneOffset()*60000);
-today = x.toISOString().substr(0,10);
+//x = new Date(x.getTime() - x.getTimezoneOffset()*60000);
+//today = x.toISOString().substr(0,10);
+today = getYMD(x);
 selected=[];
 selectedMonths=[];
 selectedWeeks=[];
@@ -257,7 +273,8 @@ for (var j=0;j< ((daysAhead+daysBack)/30);j++) {
 	for (var i = 1;i <=31;i++) {
 		var zero = "0";
 		if (i >=10) {zero = "";}
-		var checkdate =d.toISOString().substr(0,8)+zero+i;
+		//var checkdate =d.toISOString().substr(0,8)+zero+i;
+		var checkdate = getYMD(d).substr(0,8)+zero+i;
 		var checkmonth = new Date(checkdate).getMonth();
 		var id = "id"+checkdate;
 		var tid = "td"+checkdate;
