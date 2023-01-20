@@ -175,6 +175,8 @@ function calculate() {
 //console.log(cd+" "+days);
 		//document.getElementById("problems").innerHTML=y+":"+m+":"+d+":"+days;
 		var bgc = "lightgreen";
+		var tip = days+"/"+daysBack;
+
 		if (dow == 0) {bgc="green";}
  
 		if (cd == firstFuture) { daysAtFirst = days;}
@@ -185,7 +187,7 @@ function calculate() {
 		if (bgc.includes("green") && firstAvailable == "" && cd > today) {firstAvailable = cd; bgc="orange";}
 		//document.getElementById("td"+selected[i]).style.backgroundColor=bgc;
 		var td=document.getElementById("td"+cd);
-		if (td!==null) {td.style.backgroundColor=bgc;}
+		if (td!==null) {td.style.backgroundColor=bgc; td.title=tip;}
 	
 		var bcolor = "initial";
  		if (beforetoday > daysMax) {bcolor ="red";}
@@ -279,9 +281,10 @@ for (var j=0;j< ((daysAhead+daysBack)/30);j++) {
 		var id = "id"+checkdate;
 		var tid = "td"+checkdate;
 		var style="";
-		if (checkdate > today) {style='style="background-color:lightgreen"';}
+		var tip ="";
+		if (checkdate > today) {style='style="background-color:lightgreen"'; tip='title="0/'+daysBack+'"';}
 		var 	dbl="";
-
+		
 		if (new Date(checkdate).getDay() == 0) {
 			dbl = 'ondblclick="selectweek('+"'"+checkdate+"')"+'"';
 			style='style="background-color:darkgreen"';
@@ -290,7 +293,7 @@ for (var j=0;j< ((daysAhead+daysBack)/30);j++) {
 		if (checkdate == today) {style='style="background-color:blue"';}
 		if (checkdate > today && firstAvailable == "") {style='style="background-color:orange"';firstAvailable = checkdate;}
 		if (checkmonth == d.getMonth() && checkdate >= first ) {
-			tab+='<td '+dbl+' id="'+tid+'"'+style+' ><input id="'+id+'" onclick="onClick(this)" type="checkbox"></input></td>';
+			tab+='<td '+tip+' '+dbl+' id="'+tid+'"'+style+' ><input id="'+id+'" onclick="onClick(this)" type="checkbox"></input></td>';
 		} else { tab+="<td></td>"; }
 		if (i%5 ==0) {tab+="<td>|</td>";}
 	}
