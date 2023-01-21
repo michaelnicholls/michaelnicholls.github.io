@@ -14,7 +14,7 @@ Double-clicking a Sunday will set/unset that week.
 <button onclick="save()">Save selected dates</button>
 <label for="datefile">Select a file with saved dates</label>
 <input type="file" name="datefile" id="datefile" accept=".txt" onchange="fileSelected()"/>
-<button id="upload-button"  onclick="uploadFile()" > Start upload </button>
+<button id="upload-button"  onclick="uploadFile()" > Upload selected file</button>
 <button onclick="main()">Clear all dates</button>
 <table><tbody id="tbody"></tbody>
 </table>
@@ -175,12 +175,12 @@ function calculate() {
 //console.log(cd+" "+days);
 		//document.getElementById("problems").innerHTML=y+":"+m+":"+d+":"+days;
 		var bgc = "lightgreen";
-		var tip = days+"/"+daysBack;
+		var tip = "Selected days in the previous "+daysBack+": "+days;
 
 		if (dow == 0) {bgc="green";}
  
 		if (cd == firstFuture) { daysAtFirst = days;}
-		if (days >= daysMax)  {
+		if (days > daysMax)  {
 			bgc="#ff4d4d";
 		if (dow==0) { bgc="darkred";}
 		}
@@ -191,19 +191,22 @@ function calculate() {
 	
 		var bcolor = "initial";
  		if (beforetoday > daysMax) {bcolor ="red";}
-		if (firstFuture !== "") {
-			document.getElementById("first").hidden = false;
-   			document.getElementById("first").innerHTML = "Days used before the first future selected date:("+firstFuture+"): "+daysAtFirst;
-			document.getElementById("first").style.color = bcolor;
-		} else {
-			document.getElementById("first").hidden = true;
-		}
+	//	if (firstFuture !== "") {
+	//		document.getElementById("first").hidden = false;
+   	//		document.getElementById("first").innerHTML = "Days used before the first future selected date:("+firstFuture+"): "+daysAtFirst;
+	//		document.getElementById("first").style.color = bcolor;
+	//	} else {
+	//		document.getElementById("first").hidden = true;
+	//	}
 //		};
 	}
   var bcolor = "initial";
-  if (beforetoday > daysMax) {bcolor ="red";}
+  var hidden = true;
+  if (beforetoday > daysMax) {bcolor ="red"; hidden = false;}
   document.getElementById("before").innerHTML="Days used before today in the last "+daysBack+": "+beforetoday;
 	document.getElementById("before").style.color=bcolor;
+   document.getElementById("before").hidden=hidden;
+   
   var td = "td"+today;
   document.getElementById(td).style.backgroundColor="blue";
 };
@@ -282,7 +285,7 @@ for (var j=0;j< ((daysAhead+daysBack)/30);j++) {
 		var tid = "td"+checkdate;
 		var style="";
 		var tip ="";
-		if (checkdate > today) {style='style="background-color:lightgreen"'; tip='title="0/'+daysBack+'"';}
+		if (checkdate > today) {style='style="background-color:lightgreen"'; }
 		var 	dbl="";
 		
 		if (new Date(checkdate).getDay() == 0) {
@@ -301,7 +304,8 @@ for (var j=0;j< ((daysAhead+daysBack)/30);j++) {
 tab+="</tr></table>";
 document.getElementById("tbody").innerHTML = tab; 
 document.getElementById("first").hidden = true;
+document.getElementById("before").hidden = true;
 document.getElementById("before").style.color = "initial";
-document.getElementById("before").innerHTML="Days used before today in the last "+daysBack+": 0"
+//document.getElementById("before").innerHTML="Days used before today in the last "+daysBack+": 0"
 }
 </script>
