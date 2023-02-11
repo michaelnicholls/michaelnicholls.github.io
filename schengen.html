@@ -1,14 +1,14 @@
-<h3>Schengen Calculator</h3>
+<h3><center>Schengen Calculator and simulator</center></h3>
 Select the dates you were in Schengen, or plan to be.
 <br>Clicking a month will set/unset all the dates in that month.
 Double-clicking a Sunday will set/unset that week.
 
 <table><tr>
 <td>Today:</td><td style="background-color: blue"><input type="checkbox" /></td>
-<td>&nbsp;&nbsp;Potential dates:</td><td style="background-color: green"><input type="checkbox" /></td><td style="background-color: lightgreen"><input type="checkbox" /></td>
-<td>&nbsp;&nbsp;Possible problem dates:</td><td style="background-color: darkred"><input type="checkbox" /></td><td style="background-color: #ff4d4d"><input type="checkbox" /></td>
+<td>&nbsp;&nbsp;Potential dates:</td><td style="background-color: green"><input type="checkbox"  /></td><td style="background-color: lightgreen"><input type="checkbox"  /></td>
+<td>&nbsp;&nbsp;Possible problem dates:</td><td style="background-color: darkred"><input type="checkbox"  /></td><td style="background-color: #ff4d4d"><input type="checkbox"  /></td>
 <td>&nbsp;&nbsp;Sundays:</td><td style="background-color: black"><input type="checkbox" /></td>
-<td>&nbsp;&nbsp;First available date after today:</td><td style="background-color: orange"><input type="checkbox" /></td>
+<td>&nbsp;&nbsp;First available date after today:</td><td style="background-color: orange"><input type="checkbox"  /></td>
 </tr></table>
 
 <button onclick="save()">Save selected dates</button>
@@ -291,7 +291,7 @@ for (var j=0;j< ((daysAhead+daysBack)/30);j++) {
 		var id = "id"+checkdate;
 		var tid = "td"+checkdate;
 		var style="";
-		var tip ="";
+		var tip =' title="No dates selected" ';
 		if (checkdate > today) {style='style="background-color:lightgreen"'; }
 		var 	dbl="";
 		
@@ -303,7 +303,7 @@ for (var j=0;j< ((daysAhead+daysBack)/30);j++) {
 		if (checkdate == today) {style='style="background-color:blue"';}
 		if (checkdate > today && firstAvailable == "") {style='style="background-color:orange"';firstAvailable = checkdate;}
 		if (checkmonth == d.getMonth() && checkdate >= first ) {
-			tab+='<td '+tip+' '+dbl+' id="'+tid+'"'+style+' ontouchstart="report(this)" ontouchend="clearStatus(this)"><input id="'+id+'" click="onClick(this)" type="checkbox"></input></td>';
+			tab+='<td '+tip+' '+dbl+' id="'+tid+'"'+style+' ontouchstart="report(this)" ontouchend="clearStatus(this)"><input id="'+id+'" onclick="onClick(this)" type="checkbox"></input></td>';
 		} else { tab+="<td></td>"; }
 		if (i%5 ==0) {tab+="<td>|</td>";}
 	}
