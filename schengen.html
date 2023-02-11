@@ -21,6 +21,7 @@ Double-clicking a Sunday will set/unset that week.
 <br>
 <div id="before"></div>
 <div id="first"></div>
+<div id="status"><div>
 <a href="mailto:i016416@gmail.com?subject=Schengen calculator feedback&body=Hi Michael" >Send feedback</a>
 <script>
 document.getElementById("upload-button").style.visibility="hidden";
@@ -242,6 +243,12 @@ function getYMD(somedate) {
   if (d>=10) {dz="";}
   return y+"-"+mz+m+"-"+dz+d;
 };
+function report(s) {
+	document.getElementById("status").innerHTML=s.title;
+};
+function clearStatus(s) {
+	document.getElementById("status").innerHTML="";
+};
 function main() {
 firstAvailable = "";
 firstDate = new Date();
@@ -296,7 +303,7 @@ for (var j=0;j< ((daysAhead+daysBack)/30);j++) {
 		if (checkdate == today) {style='style="background-color:blue"';}
 		if (checkdate > today && firstAvailable == "") {style='style="background-color:orange"';firstAvailable = checkdate;}
 		if (checkmonth == d.getMonth() && checkdate >= first ) {
-			tab+='<td '+tip+' '+dbl+' id="'+tid+'"'+style+' ><input id="'+id+'" onclick="onClick(this)" type="checkbox"></input></td>';
+			tab+='<td '+tip+' '+dbl+' id="'+tid+'"'+style+' ontouchstart="report(this)" ontouchend="clearStatus(this)"><input id="'+id+'" click="onClick(this)" type="checkbox"></input></td>';
 		} else { tab+="<td></td>"; }
 		if (i%5 ==0) {tab+="<td>|</td>";}
 	}
