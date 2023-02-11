@@ -1,4 +1,4 @@
-<h3><center>Schengen Calculator and simulator</center></h3>
+<h3><center>Schengen calculator and simulator</center></h3>
 Select the dates you were in Schengen, or plan to be.
 <br>Clicking a month will set/unset all the dates in that month.
 Double-clicking a Sunday will set/unset that week.
@@ -10,7 +10,8 @@ Double-clicking a Sunday will set/unset that week.
 <td>&nbsp;&nbsp;Sundays:</td><td style="background-color: black"><input type="checkbox" /></td>
 <td>&nbsp;&nbsp;First available date after today:</td><td style="background-color: orange"><input type="checkbox"  /></td>
 </tr></table>
-
+On touch devices, touching a date will show how many days have been used in the previous 180.
+<p>
 <button onclick="save()">Save selected dates</button>
 <label for="datefile">Select a file with saved dates</label>
 <input type="file" name="datefile" id="datefile" accept=".txt" onchange="fileSelected()"/>
@@ -291,7 +292,7 @@ for (var j=0;j< ((daysAhead+daysBack)/30);j++) {
 		var id = "id"+checkdate;
 		var tid = "td"+checkdate;
 		var style="";
-		var tip =' title="No dates selected" ';
+		var tip =' title="No earlier dates selected" ';
 		if (checkdate > today) {style='style="background-color:lightgreen"'; }
 		var 	dbl="";
 		
