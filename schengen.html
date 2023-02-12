@@ -1,9 +1,15 @@
-<h3><center>Schengen calculator and simulator</center></h3>
+<h3>Schengen calculator and simulator</h3>
 <button id="instructionsText" onclick="instructionsVisible()" >Instructions&darr;</button>
+<button id="legendText" onclick="legendVisible()" >Legend&darr;</button>
+<button id="datesText" onclick="datesVisible()" >Dates&darr;</button>
 <div id="instructions" style="display:none">
 Select the dates you were in Schengen, or plan to be.
 <br>Clicking a month will set/unset all the dates in that month.
 Double-clicking a Sunday will set/unset that week.
+<br>On touch devices, touching a date will show how many days have been used in the previous 180.
+
+</div>
+<div id="legend" style="display:none">
 <table><tr>
 <td>Today:</td><td style="background-color: blue"><input type="checkbox" /></td>
 <td>&nbsp;&nbsp;Potential dates:</td><td style="background-color: green"><input type="checkbox"  /></td><td style="background-color: lightgreen"><input type="checkbox"  /></td>
@@ -11,19 +17,20 @@ Double-clicking a Sunday will set/unset that week.
 <td>&nbsp;&nbsp;Sundays:</td><td style="background-color: black"><input type="checkbox" /></td>
 <td>&nbsp;&nbsp;First available date after today:</td><td style="background-color: orange"><input type="checkbox"  /></td>
 </tr></table>
-On touch devices, touching a date will show how many days have been used in the previous 180.
-<p>
+
 </div>
+
+<div id="dates" style="display:none">
 <button onclick="save()">Save selected dates</button>
 <label for="datefile">Select a file with saved dates</label>
 <input type="file" name="datefile" id="datefile" accept=".txt" onchange="fileSelected()"/>
 <button id="upload-button"  onclick="uploadFile()" > Upload selected file</button>
 <button onclick="main()">Clear all dates</button>
+</div>
 <table><tbody id="tbody"></tbody>
 </table>
 <br>
 <div id="before"></div>
-<div id="first"></div>
 <div id="status"><div>
 <a href="mailto:i016416@gmail.com?subject=Schengen calculator feedback&body=Hi Michael" >Send feedback</a>
 <script>
@@ -39,6 +46,26 @@ function instructionsVisible() {
 	} else {
 		inst.style.display = "none";
 		document.getElementById("instructionsText").innerHTML="Instructions&darr;";
+	}
+};
+function legendVisible() {
+	var inst = document.getElementById("legend");
+	if (inst.style.display == "none") {
+		inst.style.display = "block";
+		document.getElementById("legendText").innerHTML="Legend&uarr;";
+	} else {
+		inst.style.display = "none";
+		document.getElementById("legendText").innerHTML="Legend&darr;";
+	}
+};
+function datesVisible() {
+	var inst = document.getElementById("dates");
+	if (inst.style.display == "none") {
+		inst.style.display = "block";
+		document.getElementById("datesText").innerHTML="Dates&uarr;";
+	} else {
+		inst.style.display = "none";
+		document.getElementById("datesText").innerHTML="Dates&darr;";
 	}
 };
 function clickMonth(e) {
@@ -205,13 +232,6 @@ function calculate() {
 	
 		var bcolor = "initial";
  		if (beforetoday > daysMax) {bcolor ="red";}
-	//	if (firstFuture !== "") {
-	//		document.getElementById("first").hidden = false;
-   	//		document.getElementById("first").innerHTML = "Days used before the first future selected date:("+firstFuture+"): "+daysAtFirst;
-	//		document.getElementById("first").style.color = bcolor;
-	//	} else {
-	//		document.getElementById("first").hidden = true;
-	//	}
 //		};
 	}
   var bcolor = "initial";
@@ -323,7 +343,6 @@ for (var j=0;j< ((daysAhead+daysBack)/30);j++) {
 }
 tab+="</tr></table>";
 document.getElementById("tbody").innerHTML = tab; 
-document.getElementById("first").hidden = true;
 document.getElementById("before").hidden = true;
 document.getElementById("before").style.color = "initial";
 //document.getElementById("before").innerHTML="Days used before today in the last "+daysBack+": 0"
