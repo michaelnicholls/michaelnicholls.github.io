@@ -1,8 +1,9 @@
 <h3><center>Schengen calculator and simulator</center></h3>
+<button id="instructionsText" onclick="instructionsVisible()" >Instructions&darr;</button>
+<div id="instructions" style="display:none">
 Select the dates you were in Schengen, or plan to be.
 <br>Clicking a month will set/unset all the dates in that month.
 Double-clicking a Sunday will set/unset that week.
-
 <table><tr>
 <td>Today:</td><td style="background-color: blue"><input type="checkbox" /></td>
 <td>&nbsp;&nbsp;Potential dates:</td><td style="background-color: green"><input type="checkbox"  /></td><td style="background-color: lightgreen"><input type="checkbox"  /></td>
@@ -12,6 +13,7 @@ Double-clicking a Sunday will set/unset that week.
 </tr></table>
 On touch devices, touching a date will show how many days have been used in the previous 180.
 <p>
+</div>
 <button onclick="save()">Save selected dates</button>
 <label for="datefile">Select a file with saved dates</label>
 <input type="file" name="datefile" id="datefile" accept=".txt" onchange="fileSelected()"/>
@@ -29,6 +31,16 @@ document.getElementById("upload-button").style.visibility="hidden";
 var selected=[];
 var selectedMonths=[];
 var selectedWeeks=[];
+function instructionsVisible() {
+	var inst = document.getElementById("instructions");
+	if (inst.style.display == "none") {
+		inst.style.display = "block";
+		document.getElementById("instructionsText").innerHTML="Instructions&uarr;";
+	} else {
+		inst.style.display = "none";
+		document.getElementById("instructionsText").innerHTML="Instructions&darr;";
+	}
+};
 function clickMonth(e) {
       var add = (selectedMonths.indexOf(e) < 0);
 	var y = Math.floor(e / 100) ;
