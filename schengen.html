@@ -11,11 +11,11 @@ Double-clicking a Sunday will set/unset that week.
 </div>
 <div id="legend" style="display:none">
 <table><tr>
-<td>Today:</td><td style="background-color: blue"><input type="checkbox" /></td>
-<td>&nbsp;&nbsp;Potential dates:</td><td style="background-color: green"><input type="checkbox"  /></td><td style="background-color: lightgreen"><input type="checkbox"  /></td>
-<td>&nbsp;&nbsp;Possible problem dates:</td><td style="background-color: darkred"><input type="checkbox"  /></td><td style="background-color: #ff4d4d"><input type="checkbox"  /></td>
-<td>&nbsp;&nbsp;Sundays:</td><td style="background-color: black"><input type="checkbox" /></td>
-<td>&nbsp;&nbsp;First available date after today:</td><td style="background-color: orange"><input type="checkbox"  /></td>
+<td>Today:</td><td style="background-color: blue"><input type="checkbox" onclick="setOff(this)"/></td>
+<td>&nbsp;&nbsp;Potential dates:</td><td style="background-color: green"><input type="checkbox" onclick="setOff(this)" /></td><td style="background-color: lightgreen"><input type="checkbox" onclick="setOff(this)" /></td>
+<td>&nbsp;&nbsp;Possible problem dates:</td><td style="background-color: darkred"><input type="checkbox" onclick="setOff(this)" /></td><td style="background-color: #ff4d4d"><input type="checkbox"  onclick="setOff(this)"/></td>
+<td>&nbsp;&nbsp;Sundays:</td><td style="background-color: black"><input type="checkbox" onclick="setOff(this)"/></td>
+<td>&nbsp;&nbsp;First available date after today:</td><td style="background-color: orange"><input type="checkbox" onclick="setOff(this)" /></td>
 </tr></table>
 
 </div>
@@ -38,6 +38,9 @@ document.getElementById("upload-button").style.visibility="hidden";
 var selected=[];
 var selectedMonths=[];
 var selectedWeeks=[];
+function setOff(s) {
+	s.checked=false;
+};
 function instructionsVisible() {
 	var inst = document.getElementById("instructions");
 	if (inst.style.display == "none") {
