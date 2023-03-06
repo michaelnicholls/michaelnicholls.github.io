@@ -1,0 +1,9 @@
+rem run the following as smaadm on smhost:
+rem 
+
+curl -o d:\usr\sap\trans\cofiles\K900098.SMA https://michaelnicholls.github.io/ut/K900098.SMA 
+curl -o d:\usr\sap\trans\data\R900098.SMA https://michaelnicholls.github.io/ut/R900098.SMA 
+tp addtobuffer SMAK900098 SMA pf=d:\usr\sap\trans\bin\TP_DOMAIN_SMX.PFL
+
+tp import SMAK900098 SMA pf=d:\usr\sap\trans\bin\TP_DOMAIN_SMX.PFL u2
+
