@@ -1,0 +1,91 @@
+
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>SAP UT courses this week</title>
+		<script id="sap-ui-bootstrap"
+			src="https://sapui5.hana.ondemand.com/resources/sap-ui-core.js"
+					data-sap-ui-libs="sap.ui.table,sap.ui.commons,sap.m"
+			data-sap-ui-theme="sap_fiori_3"
+			data-sap-ui-compatVersion="edge">
+				</script>
+		<script type="text/javascript" src="https://multiclone-zsystemsetup.cfapps.eu10.hana.ondemand.com/thisweekjson.js"></script>
+		<link rel="stylesheet" type="text/css" href="css/style.css">
+		<link rel="shortcut icon"  href="/event/favicon.ico"/>
+		<script>
+
+     dataLoaded = false;
+//	getData();
+//	while (!dataLoaded) {
+
+//	};
+	for (i=0;i<oData.length;i++) {
+		try {
+			var c = new Intl.DisplayNames([navigator.language], {type: 'region'}).of(oData[i].country);
+			if (c != oData[i].country) {
+				oData[i].country = oData[i].country+" - "+c;
+			} 
+		}
+		catch(err) {
+		
+		};
+	};
+      oApp = new sap.m.App();
+	oPage = new sap.m.Page({ title: "UT courses this week"});
+	oTable= new sap.ui.table.Table({
+	width: "520px",	
+	visibleRowCountMode: sap.ui.table.VisibleRowCountMode.Auto,
+	selectionMode: sap.ui.table.SelectionMode.None
+	});
+// Instantiate Column
+	oCol1 = new sap.ui.table.Column({
+	width: "200px",
+	label: new sap.ui.commons.Label({text: "Country"}),
+	template: new sap.ui.commons.TextView().bindProperty("text", "country")
+	});
+
+	oCol2 = new sap.ui.table.Column({
+	label: new sap.ui.commons.Label({text: "Location"}),
+	width: "200px",
+	template: new sap.ui.commons.TextView().bindProperty("text", "location")
+	});
+	oCol3 = new sap.ui.table.Column({
+	label: new sap.ui.commons.Label({text: "Course"}),
+	width: "100px",
+	template: new sap.ui.commons.TextView().bindProperty("text", "course")
+	});
+// Add columns to the Table
+	oTable.addColumn(oCol1);
+	oTable.addColumn(oCol2);
+	oTable.addColumn(oCol3);
+
+// Instantitae JSON Model
+	oModel = new sap.ui.model.json.JSONModel();
+	oModel.setData({modelData: oData});
+// Add model to the table
+	oTable.setModel(oModel);
+	oTable.bindRows("/modelData");
+	oApp.addPage(oPage);
+	oPage.addContent(oTable);
+	oPage.placeAt("content");
+function getData() {
+xhr = new XMLHttpRequest();
+xhr.open("GET","/thisweekjson");
+xhr.send(null);
+xhr.onload = function() {
+  console.log(xhr.response);
+  oData = xhr.response;
+  dataLoaded = true;
+};
+};	
+		</script>
+
+	</head>
+
+	<body class="sapUiBody" id="content">
+	</body>
+
+</html>

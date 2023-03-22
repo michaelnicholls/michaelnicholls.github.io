@@ -1,0 +1,6 @@
+---
+
+applications:
+- name: multiclone-static
+  buildpack: https://github.com/cloudfoundry/staticfile-buildpack
+

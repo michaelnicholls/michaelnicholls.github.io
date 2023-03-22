@@ -1,0 +1,3 @@
+C:\zsystemsetup>cf api
+API endpoint:   https://api.cf.ap10.hana.ondemand.com
+API version:    3.130.0

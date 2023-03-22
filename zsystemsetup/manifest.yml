@@ -1,0 +1,11 @@
+---
+applications:
+- name: zsystemsetup
+  routes:
+    - route: multiclone-zsystemsetup.cfapps.eu10.hana.ondemand.com
+  path: ./
+  memory: 128M
+  buildpack: python_buildpack
+  command: python server.py
+  services:
+  -  pyhana

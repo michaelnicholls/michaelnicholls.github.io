@@ -1,0 +1,95 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc" controllerName="event.controller.View1" xmlns:l="sap.ui.layout" xmlns:core="sap.ui.core"
+	xmlns:html="http://www.w3.org/1999/xhtml" displayBlock="true">
+	<App xmlns="sap.m" id="idAppControl">
+		<pages>
+<!--			<Page title="SAP training event details">
+				<content> -->
+				<SplitApp id="splitapp" masterButtonText="Events" initialDetail="nodetails">
+					<masterPages>
+						<Page title="Events ({/Events/length})" id="master">
+							<content>
+								<PullToRefresh id="pullToRefresh" refresh="onRefresh"/>
+								<List items="{/Events}" noDataText="No current events found">
+									<items>
+										<ObjectListItem type="Navigation" title="{Event/event}" number="{Event/course}({Event/numclones})"
+										numberUnit="{Event/location} {Event/country}"
+										press="onSelect">
+											<firstStatus>
+												<ObjectStatus text="UT {Event/ut}"/>
+											</firstStatus>
+										<ObjectAttribute text="{Event/instructor}"/>
+										</ObjectListItem>
+											
+									</items>
+								</List>
+							</content>
+						</Page>
+					</masterPages>
+					<detailPages>
+						<Page id="nodetails"/>
+						<Page id="detailpage" title="Details"  showNavButton="true" navButtonPress="onPressDetailBack">
+							<content>
+								<l:VerticalLayout  width="100%">
+									<l:content>
+											<List>
+										<DisplayListItem label="Event"	value="{Event/event} (UT {Event/ut})" />
+										<DisplayListItem label="Course"	value="{Event/course}" />
+										<DisplayListItem label="Instructor"	value="{Event/instructor}" />
+										<DisplayListItem label="Country"	value="{Event/country}" />
+										<DisplayListItem label="Location"	value="{Event/location}" />
+										<DisplayListItem label="Last day"	value="{Event/lastday}" />
+										<DisplayListItem label="Groups"	value="{Event/groups}" />
+<!--										<DisplayListItem label="UT"	value="{Event/ut}" />
+
+										<DisplayListItem label="ABAP pwd"	value="{Event/abappwd}" />
+										<DisplayListItem label="OS pwd"	value="{Event/ospwd}" />
+-->
+										<DisplayListItem label="Clones ({Event/numclones})"	value="{Event/clones}" />
+<!--
+										<DisplayListItem label="First setup run at"	value="{Event/firstrun} (UTC)" />
+										<DisplayListItem label="Last setup run at"	value="{Event/lastrun} (UTC)" />
+-->
+										<DisplayListItem label="Language"	value="{Event/language}" />
+										<DisplayListItem label="Decimal format"	value="{Event/decfmt}" />
+										<DisplayListItem label="Date format"	value="{Event/datefmt}" />
+									
+								</List>
+<!--								<l:HorizontalLayout class="sapUiContentPadding" >
+										<Link text="Generate connection instructions"
+										target="_blank"
+							href="https://ci-p2000183813trial.dispatcher.hanatrial.ondemand.com/index.html?ut&amp;instructor={Event/instructor}&amp;course={Event/course}&amp;country={Event/country}&amp;hosts={Event/clones}&amp;event={Event/event}&amp;a={Event/abappwd}&amp;o={Event/ospwd}"/>
+								<Text text="Opens in a new window. Please check details before proceeding."/>
+								</l:HorizontalLayout> -->
+								</l:content>
+								</l:VerticalLayout>
+							
+
+							</content>
+							<footer>
+			<OverflowToolbar>
+				<ToolbarSpacer/>
+				<Button press="description" text="Description" tooltip="Get course description">
+					<customData>
+				<core:CustomData key="course" value="{Event/course}"/>
+
+					</customData>
+				</Button> 
+
+				
+				<Button press="generate" text="Generate instructions" tooltip="Generate connection instructions">
+					<customData>
+						<core:CustomData key="url" value="?ut={Event/ut}&amp;instructor={Event/instructor}&amp;course={Event/course}&amp;country={Event/country}&amp;hosts={Event/clones}&amp;event={Event/event}&amp;a={Event/abappwd}&amp;o={Event/ospwd}"/>
+
+
+					</customData>
+				</Button> 
+			</OverflowToolbar>
+		</footer>
+						</Page>
+					</detailPages>
+				</SplitApp>
+<!--				</content>
+			</Page> -->
+		</pages>
+	</App>
+</mvc:View>

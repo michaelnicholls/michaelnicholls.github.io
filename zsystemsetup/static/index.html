@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<html>
+
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta charset="UTF-8">
+
+		<title>SAP Education events based on UT</title>
+
+		<script id="sap-ui-bootstrap"
+			src="https://sapui5.hana.ondemand.com/resources/sap-ui-core.js"
+			data-sap-ui-libs="sap.m"
+			data-sap-ui-theme="sap_belize"
+			data-sap-ui-compatVersion="edge"
+			data-sap-ui-resourceroots='{"event": ""}'>
+		</script>
+		<link rel="shortcut icon"  href="/event/favicon.ico"/>
+		<link rel="stylesheet" type="text/css" href="css/style.css">
+
+		<script>
+/*
+var getUrlParameter = function getUrlParameter(sParam) {
+		  var sPageURL = window.location.search.substring(1),
+        	sURLVariables = sPageURL.split('&'),
+        	sParameterName,
+        	i;
+
+    	for (i = 0; i < sURLVariables.length; i++) {
+        	sParameterName = sURLVariables[i].split('=');
+
+        	if (sParameterName[0] === sParam) {
+            	return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+        	}
+    	}
+	};
+		var eventNumber = getUrlParameter('event');
+		if (typeof eventNumber === "undefined")
+*/
+			eventNumber = "";
+
+			sap.ui.getCore().attachInit(function() {
+				new sap.m.Shell({
+					app: new sap.ui.core.ComponentContainer({
+						height : "100%",
+						name : "event"
+					})
+				}).placeAt("content");
+			});
+		</script>
+	</head>
+
+	<body class="sapUiBody" id="content">
+	</body>
+
+</html>

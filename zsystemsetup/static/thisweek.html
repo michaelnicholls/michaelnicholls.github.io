@@ -1,0 +1,101 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>SAP UT courses this week</title>
+		<script id="sap-ui-bootstrap"
+			src="https://sapui5.hana.ondemand.com/resources/sap-ui-core.js"
+					data-sap-ui-libs="sap.ui.table,sap.ui.commons,sap.m"
+			data-sap-ui-theme="sap_fiori_3"
+			data-sap-ui-compatVersion="edge">
+				</script>
+		<link rel="stylesheet" type="text/css" href="css/style.css">
+		<link rel="shortcut icon"  href="/event/favicon.ico"/>
+		<script>
+
+	var showPrep = false;
+
+      oApp = new sap.m.App();
+	var counts = ""
+	oPage = new sap.m.Page({ title: "UT courses this week"+counts});
+	var oPull = new sap.m.PullToRefresh({
+		refresh: function()  {refresh()}
+      });
+	var oToolbar = new sap.m.OverflowToolbar({                
+	});
+	var oCheck = new sap.m.CheckBox({
+		text: "Include prep systems",
+		
+		select: function() {check()}  
+	});
+	oToolbar.addContent(oCheck);
+	oTable= new sap.ui.table.Table({
+	width: "520px",	
+	visibleRowCountMode: sap.ui.table.VisibleRowCountMode.Auto,
+	selectionMode: sap.ui.table.SelectionMode.None
+	});
+// Instantiate Column
+	oCol1 = new sap.ui.table.Column({
+	width: "200px",
+	label: new sap.ui.commons.Label({text: "Country"}),
+	template: new sap.ui.commons.TextView().bindProperty("text", "country")
+	});
+
+	oCol2 = new sap.ui.table.Column({
+	label: new sap.ui.commons.Label({text: "Location"}),
+	width: "200px",
+	template: new sap.ui.commons.TextView().bindProperty("text", "location")
+	});
+	oCol3 = new sap.ui.table.Column({
+	label: new sap.ui.commons.Label({text: "Course"}),
+	width: "100px",
+	template: new sap.ui.commons.TextView().bindProperty("text", "course")
+	});
+// Add columns to the Table
+	oTable.addColumn(oCol1);
+	oTable.addColumn(oCol2);
+	oTable.addColumn(oCol3);
+
+// Instantitae JSON Model
+	oModel = new sap.ui.model.json.JSONModel('/thisweekjson');
+// Add model to the table
+	oTable.setModel(oModel);
+	oTable.bindRows("/modelData");
+	oPage.setModel(oModel);
+	oPage.bindProperty("title","/title");
+	oApp.addPage(oPage);
+	oPage.addContent(oPull);
+	oPage.setFooter(oToolbar);
+
+	oPage.addContent(oTable);
+	oPage.placeAt("content");
+function check() {
+    showPrep = !showPrep;
+    refresh();
+};
+function refresh() {
+ var flag = "";
+ if (showPrep) {flag = "?prep=yes";}
+ oModel = new sap.ui.model.json.JSONModel('/thisweekjson'+flag); oTable.setModel(oModel);
+ oPage.setModel(oModel);
+ oPage.bindProperty("title","/title");
+ oPull.hide();
+
+};
+function checkMulti(v,singular, plural) {
+	if (v==1) {
+		return v+" "+singular;
+	} else {
+		return v+" "+plural;
+	}
+}
+		</script>
+
+	</head>
+
+	<body class="sapUiBody" id="content">
+	</body>
+
+</html>

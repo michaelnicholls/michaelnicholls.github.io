@@ -1,0 +1,17 @@
+{
+    "welcomeFile": "index.html",
+    "authenticationMethod": "route",
+    "routes": [
+      {
+        "source": "^/event(.*)",
+        "target": "$1",
+        "destination": "events"
+      },
+      {
+        "source": "^(.*)$",
+        "target": "$1",
+        "authenticationType": "xsuaa",
+        "localDir": "./"
+    }
+    ]
+  }
