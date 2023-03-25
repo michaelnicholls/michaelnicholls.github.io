@@ -1,0 +1,26 @@
+<html>
+<label for="income">Income</label>
+<input type="number" id="income" name="income" min="0" onkeyup="calculate()"/>
+<p id="result">Tax:</p>
+<script>
+document.getElementById("income").focus();
+function calculate() {
+    var income = document.getElementById("income").value;
+    var tax = 0;
+    if (income > 18200) {
+       tax = (income - 18200 ) * 0.19;
+     };
+    if (income > 45000) {
+       tax = 5092 + (income - 45000 ) * 0.325;
+     };
+    if (income > 120000) {
+       tax = 29467 +  (income - 120000 ) * 0.37;
+     };
+    if (income > 180000) {
+       tax = 51667 +  (income - 180000 ) * 0.45;
+     };
+    
+   document.getElementById("result").innerHTML="Tax + Medicare: " +Math.floor( tax * 1.02);
+};
+</script>
+</html>
