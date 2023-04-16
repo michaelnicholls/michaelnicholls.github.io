@@ -309,10 +309,14 @@ for (var i = 1;i <=31;i++) {
 	tab+="<td><center>"+i+"</center></td>";
 	if (i%5 ==0) {tab+="<td>|</td>";}
 }
-for (var j=0;j< ((daysAhead+daysBack)/30);j++) {
+for (var j=0;j<= ((daysAhead+daysBack)/30);j++) {
 	var k = firstMonth+j;
 	var zero="0";
-	if (k > 12) { k = k-12; if (k==1) {firstYear=firstYear+1;}}
+	if (k > 24) { k= k-12;}
+	if (k > 12) { 
+		k = k-12; 
+		if (k==1) {firstYear=firstYear+1;}
+	}
 	if (k >= 10) { zero = "";}
 
 	var d = new Date(firstYear+"-"+zero+k+"-01");
