@@ -6,21 +6,33 @@
 document.getElementById("income").focus();
 function calculate() {
     var income = document.getElementById("income").value;
+    var i1 = 18200;
+    var i2 = 45000;
+    var i3 = 135000;
+    var i4 = 190000;
+    var r1 = 0.16;
+    var r2 = 0.30;
+    var r3 = 0.37;
+    var r4 = 0.45;
+    var b1 = 0;
+    var b2 = 4288;
+    var b3 = 31288;
+    var b4 = 51638;
     var tax = 0;
-    if (income > 18200) {
-       tax = (income - 18200 ) * 0.19;
+    if (income > i1) {
+       tax = (income - i1 ) * r1;
      };
-    if (income > 45000) {
-       tax = 5092 + (income - 45000 ) * 0.325;
+    if (income > i2) {
+       tax = b2 + (income - i2 ) * r2;
      };
-    if (income > 120000) {
-       tax = 29467 +  (income - 120000 ) * 0.37;
+    if (income > i3) {
+       tax = b3 +  (income - i3 ) * r3;
      };
-    if (income > 180000) {
-       tax = 51667 +  (income - 180000 ) * 0.45;
+    if (income > i4) {
+       tax = b4 +  (income - i4 ) * r4;
      };
     
-   document.getElementById("result").innerHTML="Tax + Medicare: " +Math.floor( tax * 1.02);
+   document.getElementById("result").innerHTML="Tax + Medicare: " +tax+" + "+Math.floor(tax * .02)+" = "+Math.floor( tax * 1.02);
 };
 </script>
 </html>
