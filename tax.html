@@ -1,38 +1,51 @@
 <html>
+Tax calculator from 1 July 2024<p>
 <label for="income">Income</label>
 <input type="number" id="income" name="income" min="0" onkeyup="calculate()"/>
 <p id="result">Tax:</p>
 <script>
 document.getElementById("income").focus();
 function calculate() {
+rates = [{"start": 18200, "marginal": 0.16},
+	 {"start": 45000, "marginal": 0.30},
+	 {"start": 135000, "marginal": 0.37},
+   	 {"start": 190000, "marginal": 0.45}];
     var income = document.getElementById("income").value;
-    var i1 = 18200;
-    var i2 = 45000;
-    var i3 = 135000;
-    var i4 = 190000;
-    var r1 = 0.16;
-    var r2 = 0.30;
-    var r3 = 0.37;
-    var r4 = 0.45;
-    var b1 = 0;
-    var b2 = 4288;
-    var b3 = 31288;
-    var b4 = 51638;
+    var r = 0;
     var tax = 0;
-    if (income > i1) {
-       tax = (income - i1 ) * r1;
-     };
-    if (income > i2) {
-       tax = b2 + (income - i2 ) * r2;
-     };
-    if (income > i3) {
-       tax = b3 +  (income - i3 ) * r3;
-     };
-    if (income > i4) {
-       tax = b4 +  (income - i4 ) * r4;
-     };
+    for (var i=0;i<rates.length;i++) {
+	r = rates[i].marginal-r;
+	if (income > rates[i].start) {
+		tax = tax + (income-rates[i].start)*r;
+	};
+    };
+//    var i1 = 18200;
+//    var i2 = 45000;
+//    var i3 = 135000;
+//    var i4 = 190000;
+//    var r1 = 0.16;
+//    var r2 = 0.30;
+//    var r3 = 0.37;
+//    var r4 = 0.45;
+//    var b1 = 0;
+//    var b2 = 4288;
+//    var b3 = 31288;
+//    var b4 = 51638;
+//    var tax = 0;
+//    if (income > i1) {
+//     tax = (income - i1 ) * r1;
+//     };
+//    if (income > i2) {
+//       tax = b2 + (income - i2 ) * r2;
+//     };
+//    if (income > i3) {
+//       tax = b3 +  (income - i3 ) * r3;
+//     };
+//    if (income > i4) {
+//       tax = b4 +  (income - i4 ) * r4;
+//     };
     
-   document.getElementById("result").innerHTML="Tax + Medicare: " +tax+" + "+Math.floor(tax * .02)+" = "+Math.floor( tax * 1.02);
+   document.getElementById("result").innerHTML="Tax + Medicare: " +Math.floor(tax)+" + "+Math.floor(tax * .02)+" = "+Math.floor( tax * 1.02);
 };
 </script>
 </html>
