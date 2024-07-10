@@ -5,6 +5,7 @@ function analyze() {
 	var results = JSON.parse(v);
 	var tasks = [];
 	var ids = [];
+	var tick = "\u2713";
 	for (i=0;i<results['value'].length;i++) {
 		task = results['value'][i].task;
 		id = results['value'][i].communityid;
@@ -25,7 +26,7 @@ function analyze() {
 			task = tasks[j];
 			found = "&nbsp;";
 			for (x=0;x<results['value'].length;x++) {
-				if (results['value'][x].communityid == id && results['value'][x].task == task) found = "X";
+				if (results['value'][x].communityid == id && results['value'][x].task == task) found = tick;
 		 	};
 			document.write('<td style="text-align:center">'+found+"</td>");
 		};
