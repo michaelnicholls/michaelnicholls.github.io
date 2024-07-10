@@ -1,0 +1,40 @@
+<script>
+function analyze() {
+	var v = document.getElementById("buffer").value;
+	
+	var results = JSON.parse(v);
+	var tasks = [];
+	var ids = [];
+	for (i=0;i<results['value'].length;i++) {
+		task = results['value'][i].task;
+		id = results['value'][i].communityid;
+		if (!tasks.includes(task)) tasks.push(task);
+		if (!ids.includes(id)) ids.push(id);
+	};
+	tasks.sort();
+	document.write("<h2>Results of challenge</h2>");
+	document.write('<Table border="1"><tr><th>communityid</th>');
+	for (i=0;i<tasks.length;i++) {
+		document.write("<th>"+tasks[i]+"</th>");
+	};
+	document.write("</tr>");
+	for (i=0;i<ids.length;i++) {
+		id = ids[i];
+		document.write("<tr><td>"+ids[i]+"</td>");
+		for (j=0;j<tasks.length;j++) {
+			task = tasks[j];
+			found = "&nbsp;";
+			for (x=0;x<results['value'].length;x++) {
+				if (results['value'][x].communityid == id && results['value'][x].task == task) found = "X";
+		 	};
+			document.write('<td style="text-align:center">'+found+"</td>");
+		};
+		document.write("</tr>");
+	};
+	document.write("</table>");
+
+};
+</script>
+Click the link <a href="https://developer-challenge-2024-07.cfapps.eu10.hana.ondemand.com/tester/Testlog?$filter=result%20eq%20%27PASS%27&$orderby=communityid&$select=communityid,task" target="_new" >here</a> to launch a new tab with the results, and then copy paste the contents below.
+Please ensure you have the source/raw/unformatted version. 
+<input id="buffer" size="200"  oninput="analyze()"/>
