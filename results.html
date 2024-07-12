@@ -1,7 +1,7 @@
 <script>
 function analyze() {
 	var v = document.getElementById("buffer").value;
-	
+	var me = document.getElementById("me").value;
 	var results = JSON.parse(v);
 	var tasks = [];
 	var ids = [];
@@ -21,7 +21,11 @@ function analyze() {
 	document.write("</tr>");
 	for (i=0;i<ids.length;i++) {
 		id = ids[i];
+		if (ids[i] == me) {
+		document.write('<tr style="background-color:green"><td>'+ids[i]+"</td>");
+		} else {
 		document.write("<tr><td>"+ids[i]+"</td>");
+		}
 		for (j=0;j<tasks.length;j++) {
 			task = tasks[j];
 			found = "&nbsp;";
@@ -36,6 +40,10 @@ function analyze() {
 
 };
 </script>
-Click the link <a href="https://developer-challenge-2024-07.cfapps.eu10.hana.ondemand.com/tester/Testlog?$filter=result%20eq%20%27PASS%27&$orderby=communityid&$select=communityid,task" target="_new" >here</a> to launch a new tab with the results, and then copy paste the contents below.
+Click the link 
+<a href="https://developer-challenge-2024-07.cfapps.eu10.hana.ondemand.com/tester/Testlog?$filter=result%20eq%20%27PASS%27&$orderby=communityid&$select=communityid,task" target="_new" >for all results</a>
+or <a href="https://developer-challenge-2024-07.cfapps.eu10.hana.ondemand.com/tester/Testlog?$filter=result%20eq%20%27PASS%27 and communityid ne 'qmacro'&$orderby=communityid&$select=communityid,task" target="_new" >excluding qmacro</a>
+to launch a new tab with the results, and then copy paste the contents below.
 Please ensure you have the source/raw/unformatted version. 
-<input id="buffer" size="200"  oninput="analyze()"/>
+<br>(optional) Your communityid: <input id="me"/>
+<br><input id="buffer" size="200"  oninput="analyze()"/>
