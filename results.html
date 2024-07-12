@@ -1,8 +1,17 @@
+<script src="https://instructortools.appspot.com/setvar.js?var=partial&url=https%3A%2F%2Fdeveloper-challenge-2024-07.cfapps.eu10.hana.ondemand.com%2Ftester%2FTestlog%3F%24filter%3Dresult%2520eq%2520%2527PASS%2527%2520and%2520communityid%2520ne%2520%2527qmacro%2527%26%24orderby%3Dcommunityid%26%24select%3Dcommunityid%2Ctask"></script>
+<script src="https://instructortools.appspot.com/setvar.js?var=full&url=https%3A%2F%2Fdeveloper-challenge-2024-07.cfapps.eu10.hana.ondemand.com%2Ftester%2FTestlog%3F%24filter%3Dresult%2520eq%2520%2527PASS%2527%26%24orderby%3Dcommunityid%26%24select%3Dcommunityid%2Ctask"></script>
+
+
 <script>
 function analyze() {
 	var v = document.getElementById("buffer").value;
+
+	analyzeJson(JSON.parse(document.getElementById("buffer").value));
+};
+function analyzeJson(results) {
+	//var v = document.getElementById("buffer").value;
 	var me = document.getElementById("me").value;
-	var results = JSON.parse(v);
+	//var results = JSON.parse(v);
 	var tasks = [];
 	var ids = [];
 	var tick = "\u2713";
@@ -40,10 +49,16 @@ function analyze() {
 
 };
 </script>
+<!--
 Click the link 
 <a href="https://developer-challenge-2024-07.cfapps.eu10.hana.ondemand.com/tester/Testlog?$filter=result%20eq%20%27PASS%27&$orderby=communityid&$select=communityid,task" target="_new" >for all results</a>
 or <a href="https://developer-challenge-2024-07.cfapps.eu10.hana.ondemand.com/tester/Testlog?$filter=result%20eq%20%27PASS%27 and communityid ne 'qmacro'&$orderby=communityid&$select=communityid,task" target="_new" >excluding qmacro</a>
 to launch a new tab with the results, and then copy paste the contents below.
 Please ensure you have the source/raw/unformatted version. 
+
+-->
+Get the results of the challenge
 <br>(optional) Your communityid: <input id="me"/>
-<br><input id="buffer" size="200"  oninput="analyze()"/>
+<button type="button" onclick="analyzeJson(full)">Full data</button>
+<button type="button" onclick="analyzeJson(partial)">Without qmacro</button>
+<!--<br><input id="buffer" size="200"  oninput="analyze()"/> -->
