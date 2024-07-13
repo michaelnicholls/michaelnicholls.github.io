@@ -14,22 +14,28 @@ function analyzeJson(results) {
 	//var results = JSON.parse(v);
 	var tasks = [];
 	var ids = [];
+	var counts = [];
+	var grandtotal = 0;
 	var tick = "\u2713";
 	for (i=0;i<results['value'].length;i++) {
 		task = results['value'][i].task;
 		id = results['value'][i].communityid;
-		if (!tasks.includes(task)) tasks.push(task);
+		if (!tasks.includes(task)) {
+			tasks.push(task);
+			counts.push(0);
+		}
 		if (!ids.includes(id)) ids.push(id);
 	};
 	tasks.sort();
 	document.write("<h2>Results of challenge</h2>");
 	document.write('<Table border="1"><tr><th>communityid</th>');
 	for (i=0;i<tasks.length;i++) {
-		document.write("<th>"+tasks[i]+"</th>");
+		document.write("<th>"+tasks[i].replace("-","<br>")+"</th>");
 	};
-	document.write("</tr>");
+	document.write("<td>Count</td></tr>");
 	for (i=0;i<ids.length;i++) {
 		id = ids[i];
+		var count = 0;
 		if (ids[i] == me) {
 		document.write('<tr style="background-color:lightgreen"><td>'+ids[i]+"</td>");
 		} else {
@@ -37,15 +43,27 @@ function analyzeJson(results) {
 		}
 		for (j=0;j<tasks.length;j++) {
 			task = tasks[j];
+			add = 0;
 			found = "&nbsp;";
 			for (x=0;x<results['value'].length;x++) {
-				if (results['value'][x].communityid == id && results['value'][x].task == task) found = tick;
+				if (results['value'][x].communityid == id && results['value'][x].task == task) {
+				found = tick;
+				add = 1;
+				};
 		 	};
+			count = count + add;
+			grandtotal = grandtotal + add;
+			counts[j]=counts[j]+add;
 			document.write('<td style="text-align:center">'+found+"</td>");
 		};
-		document.write("</tr>");
+		document.write('<td style="text-align:right">'+count+"</td></tr>");
 	};
-	document.write("</table>");
+	document.write('<tr style="background-color:lightblue"><td>Totals</td>');
+	for (i=0;i<tasks.length;i++) {
+		document.write('<td style="text-align:right">'+counts[i]+"</td>");
+	};
+
+	document.write('<td style="text-align:right">'+grandtotal+"</td></table>");
 
 };
 </script>
