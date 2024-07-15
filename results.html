@@ -16,6 +16,7 @@ function analyzeJson(results) {
 	var tasks = [];
 	var ids = [];
 	var counts = [];
+	var hundred = "&#128175;"
 	var grandtotal = 0;
 	var tick = "\u2713";
 	
@@ -59,7 +60,7 @@ function analyzeJson(results) {
 			document.write('<td style="text-align:center">'+found+"</td>");
 		};
 		document.write('<td style="text-align:right">');
-		if (count == tasks.length) document.write("&#128175;");
+		if (count == tasks.length) document.write(hundred);
 		document.write(count+"</td></tr>");
 	};
 	document.write('<tr style="background-color:lightblue"><td>Totals</td>');
@@ -85,6 +86,9 @@ Get the results of the developer challenge
 <button type="button" onclick="analyzeJson(partial)">Without qmacro</button>
 <!--<br><input id="buffer" size="200"  oninput="analyze()"/> -->
 <script>
-document.getElementById('latest').innerHTML = "Last successful execution at "+new Date(latest['value'][0].modifiedAt);
+var minsago = Math.floor((new Date() - new Date(latest['value'][0].modifiedAt)) / 60000);
+var ago = minsago+" minutes ago";
+if (minsago > 60) ago =  " more than an hour ago";
+document.getElementById('latest').innerHTML = "Last successful execution "+ago;
 
 </script>
