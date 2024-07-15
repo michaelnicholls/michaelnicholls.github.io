@@ -18,6 +18,7 @@ function analyzeJson(results) {
 	var counts = [];
 	var grandtotal = 0;
 	var tick = "\u2713";
+	
 	for (i=0;i<results['value'].length;i++) {
 		task = results['value'][i].task;
 		id = results['value'][i].communityid;
@@ -57,7 +58,9 @@ function analyzeJson(results) {
 			counts[j]=counts[j]+add;
 			document.write('<td style="text-align:center">'+found+"</td>");
 		};
-		document.write('<td style="text-align:right">'+count+"</td></tr>");
+		document.write('<td style="text-align:right">');
+		if (count == tasks.length) document.write("&#128175;");
+		document.write(count+"</td></tr>");
 	};
 	document.write('<tr style="background-color:lightblue"><td>Totals</td>');
 	for (i=0;i<tasks.length;i++) {
