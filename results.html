@@ -17,6 +17,7 @@ function analyzeJson(results) {
 	var ids = [];
 	var counts = [];
 	var hundred = "&#128175;"
+	var hundreds = 0;
 	var grandtotal = 0;
 	var tick = "\u2713";
 	
@@ -35,7 +36,7 @@ function analyzeJson(results) {
 	for (i=0;i<tasks.length;i++) {
 		document.write("<th>"+tasks[i].replace("-","<br>")+"</th>");
 	};
-	document.write("<th>Count</th></tr>");
+	document.write('<th>Passes</th><th></th></tr>');
 	for (i=0;i<ids.length;i++) {
 		id = ids[i];
 		var count = 0;
@@ -59,16 +60,24 @@ function analyzeJson(results) {
 			counts[j]=counts[j]+add;
 			document.write('<td style="text-align:center">'+found+"</td>");
 		};
-		document.write('<td style="text-align:right">');
-		if (count == tasks.length) document.write(hundred);
-		document.write(count+"</td></tr>");
+		document.write('<td style="text-align:right">'+count+"</td>");
+		if (count == tasks.length) {
+			document.write("<td>"+hundred+"</td>");
+			hundreds = hundreds + 1;
+		} else {
+			document.write("<td>&nbsp;</td>");
+			
+		}
+		document.write("</tr>");
 	};
 	document.write('<tr style="background-color:lightblue"><td>Totals</td>');
 	for (i=0;i<tasks.length;i++) {
 		document.write('<td style="text-align:right">'+counts[i]+"</td>");
 	};
 
-	document.write('<td style="text-align:right">'+grandtotal+"</td></table>");
+	document.write('<td style="text-align:right">'+grandtotal+"</td>");
+	document.write("<td>"+hundreds+"/"+ids.length+"</td>");
+	document.write("</tr></table>");
 
 };
 </script>
