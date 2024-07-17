@@ -97,7 +97,9 @@ Get the results of the developer challenge
 <script>
 var minsago = Math.floor((new Date() - new Date(latest['value'][0].modifiedAt)) / 60000);
 var ago = minsago+" minutes ago";
-if (minsago > 60) ago =  " more than an hour ago";
+if (minsago > 60) ago = " more than an hour ago";
+if (minsago == 0) ago = " less than 1 minute ago";
+if (minsago == 1) ago = " 1 minute ago";
 document.getElementById('latest').innerHTML = "Last successful execution "+ago;
 
 </script>
