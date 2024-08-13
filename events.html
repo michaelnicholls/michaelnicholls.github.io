@@ -1,0 +1,34 @@
+<script src="https://instructortools.appspot.com/getperformance.js"></script>
+<html>
+<h2>Upcoming events</h2>
+<table border="1">
+
+<tr><th>Date</th><th>Venue</th><th>Location</th><th>Act</th></tr>
+<tbody id="body">
+
+</tbody>
+</table>
+<script>
+html = ""
+for (i=0;i<performances.length;i++) {
+	var venue="&nbsp;";
+	var url =""
+	var loc="&nbsp;";
+	for (j=0;j<venues.length;j++) {
+		if (venues[j].venue==performances[i].venue) {
+			venue=venues[j].name;
+			url=venues[j].url;
+			loc=venues[j].location+" ("+venues[j].postcode+")";
+		};
+	};
+	if (url != "") {
+		venue='<a target="_new" href="'+url+'">'+venue+"</a>";	
+	};
+	act="&nbsp;";
+	for (j=0;j<acts.length;j++) {
+		if (acts[j].act==performances[i].act) {act=acts[j].name};
+	};
+	html=html+"<tr><td>"+performances[i].datetime+"</td><td>"+venue+"</td><td>"+loc+"</td><td>"+act+"</td></tr>";
+	};
+document.getElementById("body").innerHTML= html;
+</script>
