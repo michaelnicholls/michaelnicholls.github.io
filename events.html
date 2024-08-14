@@ -3,12 +3,20 @@
 <h2>Upcoming events</h2>
 <table border="1">
 
-<tr><th>Date</th><th>Venue</th><th>Location</th><th>Act</th></tr>
+<tr><th>Date</th><th>Venue</th><th>Location</th><th>Act  <select id="act" onchange="filteract()"></select></th></tr>
 <tbody id="body">
 
 </tbody>
 </table>
 <script>
+vActs = [];
+document.getElementById("act").options.add(new Option("All", "All"));
+showTable("All");
+
+function filteract() {
+	showTable(document.getElementById("act").value);
+};
+function showTable(subset) {
 html = ""
 for (i=0;i<performances.length;i++) {
 	var venue="&nbsp;";
@@ -28,7 +36,17 @@ for (i=0;i<performances.length;i++) {
 	for (j=0;j<acts.length;j++) {
 		if (acts[j].act==performances[i].act) {act=acts[j].name};
 	};
-	html=html+"<tr><td>"+performances[i].datetime+"</td><td>"+venue+"</td><td>"+loc+"</td><td>"+act+"</td></tr>";
+	if (subset=="All" || subset == act) {
+		html=html+"<tr><td>"+performances[i].datetime+"</td><td>"+venue+"</td><td>"+loc+"</td><td>"+act+"</td></tr>";
+		if (subset=="All" && !vActs.includes(act)) vActs.push(act);
+		};
 	};
-document.getElementById("body").innerHTML= html;
+	document.getElementById("body").innerHTML= html;
+	if (document.getElementById("act").options.length == 1) {
+		vActs.sort();
+		for (i=0;i<vActs.length;i++) {
+			document.getElementById("act").options.add(new Option(vActs[i],vActs[i]));
+			};
+		};
+	};
 </script>

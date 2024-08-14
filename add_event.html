@@ -1,0 +1,18 @@
+<script src="https://instructortools.appspot.com/getperformance.js"></script>
+<html>
+<h2>Add event</h2>
+<form action="https://instructortools.appspot.com/addperformance">
+<select id="venue" name="venue"></select>
+<select id="act" name="act"></select>
+<input id="dt" name="dt"></input>
+<input type="submit" value="Add">
+</form>
+<script>
+for (i=0;i<venues.length;i++) {
+document.getElementById("venue").options.add(new Option(venues[i].name, venues[i].venue));
+};
+for (i=0;i<acts.length;i++) {
+document.getElementById("act").options.add(new Option(acts[i].name, acts[i].act));
+};
+document.getElementById("dt").value=new Date().toISOString().split('T')[0]+" 19:00";
+</script>
