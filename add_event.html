@@ -4,6 +4,7 @@
 <form action="https://instructortools.appspot.com/addperformance">
 <select id="venue" name="venue"></select>
 <select id="act" name="act"></select>
+<input id="picker" type="date" onchange="setdt()"></input>
 <input id="dt" name="dt"></input>
 <input type="submit" value="Add">
 </form>
@@ -15,4 +16,10 @@ for (i=0;i<acts.length;i++) {
 document.getElementById("act").options.add(new Option(acts[i].name, acts[i].act));
 };
 document.getElementById("dt").value=new Date().toISOString().split('T')[0]+" 19:00";
+function setdt() {
+	d = new Date(document.getElementById("picker").value);
+	old = document.getElementById("dt").value.substr(11);
+	document.getElementById("dt").value=d.toISOString().split('T')[0]+" "+old;
+	
+};
 </script>
