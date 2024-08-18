@@ -4,12 +4,17 @@
 <form action="https://instructortools.appspot.com/addperformance">
 <select id="venue" name="venue"></select>
 <select id="act" name="act"></select>
-<input id="picker" type="date" onchange="setdt()"></input>
-<input id="dt" name="dt"></input>
+<input id="picker" type="datetime-local" onchange="setdt()"></input>
+<input id="dt" name="dt" readonly="true" disabled ></input>
 <input id="pwd" placeholder="pwd" name="pwd" type="password"></input>
 <input type="submit" value="Add">
 </form>
 <script>
+now = new Date();
+now.setHours(19);
+now.setMinutes(0);
+now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+document.getElementById("picker").value=now.toISOString().substr(0,16);
 for (i=0;i<venues.length;i++) {
 document.getElementById("venue").options.add(new Option(venues[i].name, venues[i].venue));
 };
@@ -19,8 +24,8 @@ document.getElementById("act").options.add(new Option(acts[i].name, acts[i].act)
 document.getElementById("dt").value=new Date().toISOString().split('T')[0]+" 19:00";
 function setdt() {
 	d = new Date(document.getElementById("picker").value);
-	old = document.getElementById("dt").value.substr(11);
-	document.getElementById("dt").value=d.toISOString().split('T')[0]+" "+old;
+	d.setMinutes(d.getMinutes() - d.getTimezoneOffset());
+	document.getElementById("dt").value=d.toISOString().substr(0,16).replace("T"," ");
 	
 };
 </script>
