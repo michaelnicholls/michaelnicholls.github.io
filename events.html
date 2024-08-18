@@ -13,7 +13,7 @@ a:visited {
 <h2>Upcoming live music events</h2>
 <table border="1">
 
-<tr><th>Date</th><th>Venue</th><th>Location</th><th>Act  <select id="act" onchange="filteract()"></select></th></tr>
+<tr><th>Date</th><th>Venue</th><th>Location</th><th>Act  <select id="act" onchange="filteract()"></select></th><th>Weekly</th></tr>
 <tbody id="body">
 
 </tbody>
@@ -28,6 +28,18 @@ function filteract() {
 };
 function showTable(subset) {
 html = ""
+for (i=0;i<performances.length;i++) {
+	var d = new Date(performances[i].datetime);
+	now = new Date();
+	if (performances[i].weekly == "X") {
+		while (d < now) {
+		d.setDate(d.getDate()+7);
+		}; 
+		d.setMinutes(d.getMinutes() - d.getTimezoneOffset());
+		performances[i].datetime=d.toISOString().substr(0,16).replace("T"," ");
+	};
+};
+performances.sort(( a,b) => new Date(a.datetime) - new Date(b.datetime));
 for (i=0;i<performances.length;i++) {
 	var d = new Date(performances[i].datetime);
 	var dnames=["Sun/Dim","Mon/Lun","Tue/Mar","Wed/Mer","Thu/Jeu","Fri/Ven","Sat/Sam"];
@@ -51,7 +63,7 @@ for (i=0;i<performances.length;i++) {
 		if (acts[j].act==performances[i].act) {act=acts[j].name};
 	};
 	if (subset=="All" || subset == act) {
-		html=html+"<tr><td>"+dt+"</td><td>"+venue+"</td><td>"+loc+"</td><td>"+act+"</td></tr>";
+		html=html+"<tr><td>"+dt+"</td><td>"+venue+"</td><td>"+loc+"</td><td>"+act+'</td><td style="text-align:center">'+performances[i].weekly+"</td></tr>";
 		if (subset=="All" && !vActs.includes(act)) vActs.push(act);
 		};
 	};
