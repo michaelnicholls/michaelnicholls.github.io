@@ -1,0 +1,38 @@
+<head>
+<style>
+
+/* visited link */
+a:visited {
+  color: blue;
+}
+</style>
+</head>
+<script src="https://instructortools.appspot.com/getperformance.js"></script>
+<html>
+<title>Live music venues</title>
+<h2>Live music venues</h2>
+<table border="1">
+
+<tr><th>Venue</th><th>Location</th><th>Postcode</th><th>Website</th></tr>
+<tbody id="body">
+
+</tbody>
+</table>
+<script>
+showTable("All");
+
+function showTable(subset) {
+html = ""
+for (i=0;i<venues.length;i++) {
+	venue=venues[i].name;
+	url=venues[i].url;
+	loc=venues[i].location;
+	postcode = venues[i].postcode;
+	if (url != "") {
+		url='<a target="_new" href="'+url+'">'+url+"</a>";	
+	};
+	html=html+"<tr><td>"+venue+"</td><td>"+loc+"</td><td>"+postcode+"</td><td>"+url+"</td></tr>";
+};
+document.getElementById("body").innerHTML= html;
+};
+</script>
