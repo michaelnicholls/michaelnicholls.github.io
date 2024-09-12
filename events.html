@@ -13,11 +13,12 @@ a:visited {
 <h2>Upcoming live music events</h2>
 <table border="1">
 
-<tr><th>Date</th><th>Venue</th><th>Location</th><th>Act  <select id="act" onchange="filteract()"></select></th><th>Weekly</th></tr>
+<tr><th colspan="2">Date</th><th>Venue</th><th>Location</th><th>Act  <select id="act" onchange="filteract()"></select></th><th>Weekly</th></tr>
 <tbody id="body">
 
 </tbody>
 </table>
+<div id="today">*  Today/aujourd'hui</div><div id="tomorrow">** Tomorrow/demain</div>
 <script>
 vActs = [];
 document.getElementById("act").options.add(new Option("All", "All"));
@@ -28,6 +29,19 @@ function filteract() {
 };
 function showTable(subset) {
 html = ""
+showtoday = false;
+showtomorrow = false;
+today = new Date();
+today.setMinutes(today.getMinutes() - today.getTimezoneOffset());
+todayISO=today.toISOString();
+today=todayISO.substr(8,2)+"/"+todayISO.substr(5,2);
+
+tomorrow = new Date();
+tomorrow.setDate(tomorrow.getDate() + 1);
+tomorrow.setMinutes(tomorrow.getMinutes() - tomorrow.getTimezoneOffset());
+tomorrowISO= tomorrow.toISOString();
+tomorrow=tomorrowISO.substr(8,2)+"/"+tomorrowISO.substr(5,2);
+
 for (i=0;i<performances.length;i++) {
 	var d = new Date(performances[i].datetime);
 	now = new Date();
@@ -44,7 +58,11 @@ for (i=0;i<performances.length;i++) {
 	var d = new Date(performances[i].datetime);
 	var dnames=["Sun/Dim","Mon/Lun","Tue/Mar","Wed/Mer","Thu/Jeu","Fri/Ven","Sat/Sam"];
 	var dname = dnames[d.getDay()];
-	var dt = dname + " "+performances[i].datetime.substr(8,2)+"/"+performances[i].datetime.substr(5,2)+" " +performances[i].datetime.substr(11);
+//	var dt = dname + " "+performances[i].datetime.substr(8,2)+"/"+performances[i].datetime.substr(5,2)+" " +performances[i].datetime.substr(11);
+	var dt = performances[i].datetime.substr(8,2)+"/"+performances[i].datetime.substr(5,2)+" " +performances[i].datetime.substr(11);
+	var special = "";
+	if (dt.substr(0,5) == today) {special = "*"; showtoday = true;}
+	if (dt.substr(0,5) == tomorrow) {special = "**"; showtomorrow = true;}
 	var venue="&nbsp;";
 	var url =""
 	var loc="&nbsp;";
@@ -63,11 +81,13 @@ for (i=0;i<performances.length;i++) {
 		if (acts[j].act==performances[i].act) {act=acts[j].name};
 	};
 	if (subset=="All" || subset == act) {
-		html=html+"<tr><td>"+dt+"</td><td>"+venue+"</td><td>"+loc+"</td><td>"+act+'</td><td style="text-align:center">'+performances[i].weekly+"</td></tr>";
+		html=html+"<tr><td>"+dname+special+"</td><td>"+dt+"</td><td>"+venue+"</td><td>"+loc+"</td><td>"+act+'</td><td style="text-align:center">'+performances[i].weekly+"</td></tr>";
 		if (subset=="All" && !vActs.includes(act)) vActs.push(act);
 		};
 	};
 	document.getElementById("body").innerHTML= html;
+	if (!showtoday) { document.geteElementById("today").style.visibility = "hidden";}
+	if (!showtomorrow) { document.geteElementById("tomorrow").style.visibility = "hidden";}
 	if (document.getElementById("act").options.length == 1) {
 		vActs.sort();
 		for (i=0;i<vActs.length;i++) {
@@ -75,4 +95,4 @@ for (i=0;i<performances.length;i++) {
 			};
 		};
 	};
-</script>
+</script>	
