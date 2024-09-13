@@ -18,7 +18,7 @@ a:visited {
 
 </tbody>
 </table>
-<div id="today">*  Today/aujourd'hui</div><div id="tomorrow">** Tomorrow/demain</div>
+<span id="today">**Today/aujourd'hui</span> <span id="tomorrow">* Tomorrow/demain</span>
 <script>
 vActs = [];
 document.getElementById("act").options.add(new Option("All", "All"));
@@ -60,9 +60,6 @@ for (i=0;i<performances.length;i++) {
 	var dname = dnames[d.getDay()];
 //	var dt = dname + " "+performances[i].datetime.substr(8,2)+"/"+performances[i].datetime.substr(5,2)+" " +performances[i].datetime.substr(11);
 	var dt = performances[i].datetime.substr(8,2)+"/"+performances[i].datetime.substr(5,2)+" " +performances[i].datetime.substr(11);
-	var special = "";
-	if (dt.substr(0,5) == today) {special = "*"; showtoday = true;}
-	if (dt.substr(0,5) == tomorrow) {special = "**"; showtomorrow = true;}
 	var venue="&nbsp;";
 	var url =""
 	var loc="&nbsp;";
@@ -81,13 +78,16 @@ for (i=0;i<performances.length;i++) {
 		if (acts[j].act==performances[i].act) {act=acts[j].name};
 	};
 	if (subset=="All" || subset == act) {
+		var special = "";
+		if (dt.substr(0,5) == today) {special = "**"; showtoday = true;}
+		if (dt.substr(0,5) == tomorrow) {special = "*"; showtomorrow = true;}
 		html=html+"<tr><td>"+dname+special+"</td><td>"+dt+"</td><td>"+venue+"</td><td>"+loc+"</td><td>"+act+'</td><td style="text-align:center">'+performances[i].weekly+"</td></tr>";
 		if (subset=="All" && !vActs.includes(act)) vActs.push(act);
 		};
 	};
 	document.getElementById("body").innerHTML= html;
-	if (!showtoday) { document.geteElementById("today").style.visibility = "hidden";}
-	if (!showtomorrow) { document.geteElementById("tomorrow").style.visibility = "hidden";}
+	if (!showtoday) { document.getElementById("today").style.display = "none";} else {document.getElementById("today").style.display = "inline";}
+	if (!showtomorrow) { document.getElementById("tomorrow").style.display = "none";} else {document.getElementById("tomorrow").style.display = "inline";}
 	if (document.getElementById("act").options.length == 1) {
 		vActs.sort();
 		for (i=0;i<vActs.length;i++) {
