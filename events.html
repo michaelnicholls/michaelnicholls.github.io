@@ -61,6 +61,8 @@ for (i=0;i<performances.length;i++) {
 //	var dt = dname + " "+performances[i].datetime.substr(8,2)+"/"+performances[i].datetime.substr(5,2)+" " +performances[i].datetime.substr(11);
 	var dt = performances[i].datetime.substr(8,2)+"/"+performances[i].datetime.substr(5,2)+" " +performances[i].datetime.substr(11);
 	var venue="&nbsp;";
+	var comment=performances[i].comment;
+	if (comment != "") {comment = " ("+comment+")";}
 	var url =""
 	var loc="&nbsp;";
 	for (j=0;j<venues.length;j++) {
@@ -81,7 +83,7 @@ for (i=0;i<performances.length;i++) {
 		var special = "";
 		if (dt.substr(0,5) == today) {special = "**"; showtoday = true;}
 		if (dt.substr(0,5) == tomorrow) {special = "*"; showtomorrow = true;}
-		html=html+"<tr><td>"+dname+special+"</td><td>"+dt+"</td><td>"+venue+"</td><td>"+loc+"</td><td>"+act+'</td><td style="text-align:center">'+performances[i].weekly+"</td></tr>";
+		html=html+"<tr><td>"+dname+special+"</td><td>"+dt+"</td><td>"+venue+"</td><td>"+loc+"</td><td>"+act+comment+'</td><td style="text-align:center">'+performances[i].weekly+"</td></tr>";
 		if (subset=="All" && !vActs.includes(act)) vActs.push(act);
 		};
 	};
