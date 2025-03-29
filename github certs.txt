@@ -1,0 +1,12 @@
+https://michaelnicholls.github.io/
+
+STRUSTSSO2
+Change to edit
+Select Anonymous SSL client
+
+for each cert
+	IMPO
+	INCL
+endfor
+
+Save
