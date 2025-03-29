@@ -10,3 +10,6 @@ for each cert
 endfor
 
 Save
+
+SE38 -> ZABAPGIT_TEST_SSL -> Test
+
