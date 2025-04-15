@@ -20,6 +20,8 @@ annotations for use in an SAP Fiori Elements application:
 @AccessControl.authorizationCheck: #NOT_REQUIRED
 @EndUserText.label: 'tcode tables'
 @Metadata.ignorePropagatedAnnotations: true
+@UI.headerInfo.typeNamePlural: 'Tables in Tcodes'
+
 @Search.searchable: true
 define view entity ztcode_tables
   as select from d010tab
