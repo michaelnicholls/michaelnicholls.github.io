@@ -1,0 +1,87 @@
+Step 1:
+Use ADT to create a data definition named ztabletypes_vh for a value help for the different table types:
+
+
+@AccessControl.authorizationCheck: #NOT_REQUIRED
+@EndUserText.label: 'table types'
+@Metadata.ignorePropagatedAnnotations: true
+define view entity ztabletypes_vh as select distinct from dd02l {
+
+    key tabclass
+}
+
+Activate the view.
+
+Step 2:
+Create another data definition ztcode_tables which joins some tables to show tcodes and the tables used, and includes some
+annotations for use in an SAP Fiori Elements application:
+
+
+@AccessControl.authorizationCheck: #NOT_REQUIRED
+@EndUserText.label: 'tcode tables'
+@Metadata.ignorePropagatedAnnotations: true
+@Search.searchable: true
+define view entity ztcode_tables
+  as select from d010tab
+  
+    join         dd02l on dd02l.tabname = d010tab.tabname
+    join         tstc  on tstc.tcode = d010tab.master
+    join         tstct on  tstct.tcode = d010tab.master
+                       and tstct.sprsl = $session.system_language
+ {
+      @UI.lineItem: [{ position: 10 }]
+      @UI.selectionField: [{ position: 10 }]
+  key tstc.tcode,
+      @UI.lineItem: [{ position: 30 }]
+      @UI.selectionField: [{ position: 20 }]
+
+      
+  key d010tab.tabname as Tabname,
+      @UI.lineItem: [{ position: 20 }]
+      @Search.defaultSearchElement: true
+      @Search.fuzzinessThreshold: 0.8
+      tstct.ttext,
+      @UI.lineItem: [{ position: 40 }]
+      @UI.selectionField: [{ position: 30 }]
+      @Consumption.valueHelpDefinition: [{ entity: { name: 'ztabletypes_vh' , element: 'tabclass'}}]
+      dd02l.tabclass
+
+
+}
+
+Activate the view.
+
+Step 3:
+
+Create a service definition Ztcode_tables_srv to expose the previous view:
+
+@EndUserText.label: 'service definition'
+
+define service Ztcode_tables_srv { 
+ expose ztcode_tables;
+}
+
+Activate the service definition.
+
+Step 4:
+Create a service binding of type OData v2 plus UI named ZTCODE_TABLES_O2 from ztcode_tables_srv.
+
+
+Activate and publish.
+
+Preview ztcode_tables to see an SAP Fiori Elements app.
+
+Step 5 (optional):
+
+Use BAS or VSC to create a list report project to consume the service ztcode_tables_o2. 
+Use the main entity ztcode_tables.
+If using VSC, you may need to install the latest SAP Fiori Tools extension pack.
+
+Preview the project.
+In the page map, remove the object page.
+Add deployment details, such as BSP name.
+Deploy. 
+Find the BSP application, expand the pages with flow logic, select index.html, and test it.
+
+
+
