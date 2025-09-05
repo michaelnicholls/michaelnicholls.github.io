@@ -2,6 +2,6 @@
 <form action="https://instructortools.appspot.com/WhatsAppRequest" method="POST">
 My name:<input name="name" id="name"/>
 My email:<input type = "email" name="email" id="email"/>
-My WhatsApp phone number:<input type = "tel" placeholder="+33 6 12 34 56 78" name="phone" id="phone"/>
+My WhatsApp phone number:<input type = "tel" placeholder="+33 6 12 34 56 78" pattern="^\+(?:[0-9] ?){6,14}[0-9]$" name="phone" id="phone"/>
 <input  type="submit"/>
 </form>
