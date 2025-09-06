@@ -1,7 +1,17 @@
 <h1>Request to join the Copper Cock Jammers WhatsApp group</h1>
 <form action="https://instructortools.appspot.com/WhatsAppRequest" method="POST">
-My name:<input name="name" id="name"/>
-My email:<input type = "email" name="email" id="email"/>
-My WhatsApp phone number:<input type = "tel" placeholder="+33 6 12 34 56 78" pattern="^\+(?:[0-9] ?){6,14}[0-9]$" name="phone" id="phone"/>
-<input  type="submit"/>
+My name:<input name="name" id="name" oninput="check()"/>
+My email:<input type = "email" name="email" id="email" oninput="check()"/>
+My WhatsApp phone number:<input type = "tel" placeholder="+33 6 12 34 56 78" pattern="^\+(?:[0-9] ?){6,14}[0-9]$" name="phone" id="phone" oninput="check()"/>
+<input id="go" name="go" disabled type="submit"/>
 </form>
+<script>
+function check() {
+var mailformat = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+var phoneformat = document.getElementById("phone").pattern;
+document.getElementById("go").disabled = !(
+    document.getElementById("name").value.trim()!="" &&
+	document.getElementById("email").value.trim().match(mailformat)!=null &&
+	document.getElementById("phone").value.trim().match(phoneformat)!=null); 
+};
+</script>
