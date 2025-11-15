@@ -1,0 +1,9 @@
+curl -o /usr/sap/trans/data/R900194.S4D https://michaelnicholls.github.io/zparams/R900194.S4D
+curl -o /usr/sap/trans/cofiles/K900194.S4D https://michaelnicholls.github.io/zparams/K900194.S4D
+
+tp addtobuffer S4DK900194 S4D pf=/usr/sap/trans/bin/TP_DOMAIN_S4D.PFL
+tp import S4DK900194 S4D pf=/usr/sap/trans/bin/TP_DOMAIN_S4D.PFL u2
+
+
+
+
