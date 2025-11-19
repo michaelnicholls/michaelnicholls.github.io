@@ -1,8 +1,9 @@
-  0000100008                                                Security                                                                                                                            
-TR0000800009STAUTHTRACE                                     Authorization Trace                                                                                                                 
-  0000800005                                                Roles                                                                                                                               
-  0000800002                                                Users                                                                                                                               
-TR0000200004SU10                                            User Mass Maintenance                                                                                                               
-TR0000200003SU01                                            User Maintenance                                                                                                                    
-TR0000500007PFCGMASSVAL                                     Mass Maintenance of Auth. Values                                                                                                    
-TR0000500006PFCG                                            Role Maintenance                                                                                                                    
+OT0000100010URL                                             SAP Help pages                                                                                                                      https://help.sap.com
+  0000100002                                                Security                                                                                                                            
+TR0000200003STAUTHTRACE                                     Authorization Trace                                                                                                                 
+  0000200004                                                Roles                                                                                                                               
+  0000200005                                                Users                                                                                                                               
+TR0000400008PFCGMASSVAL                                     Mass Maintenance of Auth. Values                                                                                                    
+TR0000400009PFCG                                            Role Maintenance                                                                                                                    
+TR0000500006SU10                                            User Mass Maintenance                                                                                                               
+TR0000500007SU01                                            User Maintenance                                                                                                                    
