@@ -1,0 +1,57 @@
+
+<script>
+const urlParams = new URLSearchParams(window.location.search);
+const className = urlParams.get('class');
+const classDescription = urlParams.get('description');
+document.write("<h3>Adding parameters for class "+className+" "+classDescription+"</h3>");
+document.write("1. Add any parameters to the append structure ZCLASS_PARAMS_LOCAL");
+document.write("<p>2. Activate ZCLASS_PARAMS_LOCAL");
+document.write("<p>3. Add the new fields to the data dictionary object ZCLASS_E_PARAMS. Set an appropriate value for the annotation:   <code>@EndUserText.label: '&lt;parameter description&gt;'</code>");
+document.write("<p>4. Activate ZCLASS_E_PARAMS");
+document.write("<p>5. Duplicate data dictionary object ZCLASS_C_PARAMS as "+className+"_C_PARAMS");
+document.write("<br>Set appropriate values for <code>@EndUserText.label:</code> and <code>@UI.headerInfo.typeNamePlural:</code>");
+document.write("<br>Change the last line to: ");
+document.write("<br><code>where Classname = '"+className+"' and (Uname = $session.user or Uname = '')</code>");
+document.write("<p>6. Activate "+className+"_C_PARAMS");
+document.write("<p>7. Create a new behaviour definition of type <code>projection</code> based on data dictionary object "+className+"_C_PARAMS");
+document.write("<br>Add the following to the definition:");
+</script>
+<code>
+ <br> use update; 
+<br> use delete;   
+ <br>use action execute; 
+<br> use action execute_object; 
+<br> use action clear;  
+<br>use action clear_object; 
+ <br>use action initialize; 
+<br> use action initialize_object; 
+<br> use action copy;
+
+</code>
+<script>
+document.write("<p>8. Activate behaviour "+className+"_C_PARAMS");
+document.write("<p>9. Create service definition  "+className+"_PARAMS of type <code>definition</code> based on object "+className+"_C_PARAMS");
+document.write("<p>10. Activate service definition "+className+"_PARAMS");
+document.write("<p>11. Create service binding "+className+"_PARAMS_O2, of binding type<code> OData V2 -UI</code> from service definition "+className+"_PARAMS");
+document.write("<p>12. Activate service binding "+className+"_PARAMS_O2");
+document.write("<p>13. Publish service binding "+className+"_PARAMS_O2");
+document.write("<p>14. Preview entity set "+className+"_C_PARAMS");
+
+document.write("<p>15. Use <code>/nSE38</code> to execute program <code>/UI5/UI5_REPOSITORY_LOAD</code>. Download SAPUI5 app <code>ZDEMO_PARAMS</code> to a new folder on your desktop.");
+document.write("<p>16. Go to the folder specified and use Notepad to edit <code>manifest.json</code> and <code>Component.js</code>");
+document.write("<br>Replace  the following values:");
+</script>
+<table border="1"><thead><td>Old value</td><td>New value</td></thead>
+
+<script>
+document.write("<tr><td>zdemoparams</td><td>"+className.toLowerCase()+"params</td></tr>");
+document.write("<tr><td>ZDEMO_C_PARAMS</td><td>"+className+"_C_PARAMS</td></tr>");
+document.write("<tr><td>ZDEMO_PARAMS_O2</td><td>"+className+"_PARAMS_O2</td></tr>");
+
+</script>
+</table>
+<script>
+document.write("<p>17. Use <code>/nSE38</code> to execute program <code>/UI5/UI5_REPOSITORY_LOAD</code>. Upload new SAPUI5 app <code>"+className+"_PARAMS</code> from the folder where you downlaoded the original app.");
+document.write("<p>18. Use <code>/n/ui2/FLPAM</code> to edit your technical catalog to add an app based on the component <code>"+className+"params with an appropriate semantic object and action");
+
+</script>
