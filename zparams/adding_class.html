@@ -2,13 +2,14 @@
 <script>
 const urlParams = new URLSearchParams(window.location.search);
 const className = urlParams.get('class');
-document.write("<h3>Adding parameters for class "+className+"</h3>");
+const classDescription = urlParams.get('desc');
+document.write("<h3>Adding parameters for class "+className+"- "+classDescription+"</h3>");
 document.write("1. Add any parameters to the append structure ZCLASS_PARAMS_LOCAL");
 document.write("<p>2. Activate ZCLASS_PARAMS_LOCAL");
 document.write("<p>3. Add the new fields to the data dictionary object ZCLASS_E_PARAMS. Set an appropriate value for the annotation:   <code>@EndUserText.label: '&lt;parameter description&gt;'</code>");
 document.write("<p>4. Activate ZCLASS_E_PARAMS");
-document.write("<p>5. Duplicate data dictionary object ZCLASS_C_PARAMS as "+className+"_C_PARAMS");
-document.write("<br>Set appropriate values for <code>@EndUserText.label:</code> and <code>@UI.headerInfo.typeNamePlural:</code>");
+document.write("<p>5. Duplicate data dictionary object ZDEMO_C_PARAMS as "+className+"_C_PARAMS");
+document.write("<br>Set appropriate values for <code>@EndUserText.label: '</code>"+className+"' and <code>@UI.headerInfo.typeNamePlural: '"+classDescription+"'</code>");
 document.write("<br>Change the last line to: ");
 document.write("<br><code>where Classname = '"+className+"' and (Uname = $session.user or Uname = '')</code>");
 document.write("<p>6. Activate "+className+"_C_PARAMS");
