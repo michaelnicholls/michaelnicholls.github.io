@@ -3,7 +3,7 @@
 const urlParams = new URLSearchParams(window.location.search);
 const className = urlParams.get('class');
 const classDescription = urlParams.get('desc');
-document.write("<h3>Setting up class "+className+"- "+classDescription+"</h3>");
+document.write("<h3>Setting up class "+className+" - "+classDescription+"</h3>");
 document.write("1. Add any parameters to the append structure ZCLASS_PARAMS_LOCAL");
 document.write("<p>2. Activate ZCLASS_PARAMS_LOCAL");
 document.write("<p>3. Add the new fields to the data dictionary object ZCLASS_E_PARAMS. Set an appropriate value for the annotation:   <code>@EndUserText.label: '&lt;parameter description&gt;'</code>");
