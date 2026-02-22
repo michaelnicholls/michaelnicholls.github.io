@@ -1,0 +1,83 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<h2>ZIP file generator to build a quick Fiori app</h2>
+<form>
+
+<table border="1">
+<tr><td><label for="appname">Application name - probably starts with Z</label></td>
+
+<td><input id="appname" name="appname" value="zappname"></td></tr>
+<tr><td><label for="service">Service name - probably starts with Z - case sensitive</label></td>
+<td><input id="service" name="service" value="ZSERVICE_NAME"></td></tr>
+<tr><td><label for="entity">Entity name - probably starts with Z - case sensitive</label></td>
+<td><input id="entity" name="entity" value="ZVIEW_NAME"></td></tr>
+<tr><td><label for="title">Application title</label></td>
+<td><input id="title" name = "title" value ="Title for your app"></td></tr>
+<tr><td><label for="description">Description</label></td>
+<td><input id="description" name = "title" value ="Description of your app"></td></tr>
+<tr><td><input type="button" onclick="go()" value="Generate ZIP"></td></tr>
+</table>
+</form>
+After the ZIP file is downloaded, open it somewhere, and use SA38 to run /UI5/UI5_REPOSITORY_LOAD to upload from that folder.
+
+<script>
+var newzip = new JSZip();
+
+async function fetchMultipleUrls(urls) {
+  try {
+    // 1. Create an array of fetch promises
+    const promises = urls.map(async url => {
+      const response = await fetch(url);
+      
+      // Check if the request was successful
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
+      // Extract the body content as text (or .json() if applicable)
+      return response.text(); 
+    });
+
+    // 2. Wait for all promises to resolve
+    const results = await Promise.all(promises);
+    
+    // results is an array containing the text content of each URL
+   // console.log("Contents of all URLs:", results);
+	var folder = document.getElementById("appname").value.toUpperCase();
+	var appname = document.getElementById("appname").value.toLowerCase();
+	var service = document.getElementById("service").value;
+	var entity = document.getElementById("entity").value;
+	var title = document.getElementById("title").value;
+	var description = document.getElementById("description").value;
+	 newzip.file(folder+"/manifest.json",results[0].replaceAll("AAAAAA",appname).replaceAll("SSSSSS", service).replaceAll("VVVVVV", entity));
+	 newzip.file(folder+"/Component.js",results[1].replaceAll("AAAAAA",appname));
+	 newzip.file(folder+"/annotation/annotation.xml",results[2]);
+	 newzip.file(folder+"/i18n/i18n.properties",results[3].replaceAll("TTTTTT",title).replaceAll("DDDDDD",description));
+	newzip.generateAsync({type:"base64"}).then(function (content) {
+     		location.href="data:application/zip;base64," + content;
+});
+    return results;
+
+  } catch (error) {
+    console.error("Error fetching URLs:", error);
+    // Handle errors appropriately
+    throw error;
+  }
+}
+
+// List of URLs to fetch
+const urlsToFetch = [
+  'https://michaelnicholls.github.io/simpleFiori/manifest.json',
+  'https://michaelnicholls.github.io/simpleFiori/Component.js',
+  'https://michaelnicholls.github.io/simpleFiori/annotation.xml',
+  'https://michaelnicholls.github.io/simpleFiori/i18n.properties',
+
+
+];
+
+// Call the function
+function go() {
+fetchMultipleUrls(urlsToFetch);
+};
+   
+
+</script>
