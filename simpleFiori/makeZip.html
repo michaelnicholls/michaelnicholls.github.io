@@ -68,7 +68,9 @@ async function fetchMultipleUrls(urls) {
 		
 	}
 	var description = document.getElementById("description").value;
-	 newzip.file(folder+"/manifest.json",results[checked].replaceAll("AAAAAA",appname).replaceAll("SSSSSS", service).replaceAll("BBBBBB", binding).replaceAll("VVVVVV", entity));
+	newmanifest = results[checked].replaceAll("AAAAAA",appname).replaceAll("SSSSSS", service).replaceAll("BBBBBB", binding).replaceAll("VVVVVV", entity);
+	newmanifest = newmanifest.replaceAll("ssssss",service.toLowerCase()).replaceAll("bbbbbb",binding.toLowerCase());
+	 newzip.file(folder+"/manifest.json",newmanifest);
 	 newzip.file(folder+"/Component.js",results[2].replaceAll("AAAAAA",appname));
 	 newzip.file(folder+"/annotation/annotation.xml",results[3]);
 	 newzip.file(folder+"/i18n/i18n.properties",results[4].replaceAll("TTTTTT",title).replaceAll("DDDDDD",description));
