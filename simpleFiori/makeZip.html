@@ -18,7 +18,12 @@
 <td><input id="title" name = "title" value ="Title for your app"></td></tr>
 <tr><td><label for="description">Description</label></td>
 <td><input id="description" name = "title" value ="Description of your app"></td></tr>
-<tr><td><input type="button" onclick="go()" value="Generate ZIP"></td></tr>
+<tr>
+<td>
+<input type ="radio" name="v"  value="V2"><label for="v2">V2</label>
+<input type ="radio" name="v" value="V4" checked><label for="v4">V4</label>
+  </td>
+<td><input type="button" onclick="go()" value="Generate ZIP"></td></tr>
 </table>
 </form>
 </td><td><img src="https://michaelnicholls.github.io/simpleFiori/Screenshot.jpg" height="200" width="400" title="Finding the values"></td></tr>
@@ -55,6 +60,13 @@ async function fetchMultipleUrls(urls) {
 	var binding = document.getElementById("binding").value;
 	var entity = document.getElementById("entity").value;
 	var title = document.getElementById("title").value;
+	var radios = document.getElementsByName("v");
+	for (var i = 0; i < radios.length; i++) {
+		if (radios[i].checked) { 
+			v = radios[i].value; 
+		}
+		
+	}
 	var description = document.getElementById("description").value;
 	 newzip.file(folder+"/manifest.json",results[0].replaceAll("AAAAAA",appname).replaceAll("SSSSSS", service).replaceAll("BBBBBB", binding).replaceAll("VVVVVV", entity));
 	 newzip.file(folder+"/Component.js",results[1].replaceAll("AAAAAA",appname));
