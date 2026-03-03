@@ -63,15 +63,15 @@ async function fetchMultipleUrls(urls) {
 	var radios = document.getElementsByName("v");
 	for (var i = 0; i < radios.length; i++) {
 		if (radios[i].checked) { 
-			v = radios[i].value; 
+			checked = i; 
 		}
 		
 	}
 	var description = document.getElementById("description").value;
-	 newzip.file(folder+"/manifest.json",results[0].replaceAll("AAAAAA",appname).replaceAll("SSSSSS", service).replaceAll("BBBBBB", binding).replaceAll("VVVVVV", entity));
-	 newzip.file(folder+"/Component.js",results[1].replaceAll("AAAAAA",appname));
-	 newzip.file(folder+"/annotation/annotation.xml",results[2]);
-	 newzip.file(folder+"/i18n/i18n.properties",results[3].replaceAll("TTTTTT",title).replaceAll("DDDDDD",description));
+	 newzip.file(folder+"/manifest.json",results[checked].replaceAll("AAAAAA",appname).replaceAll("SSSSSS", service).replaceAll("BBBBBB", binding).replaceAll("VVVVVV", entity));
+	 newzip.file(folder+"/Component.js",results[2].replaceAll("AAAAAA",appname));
+	 newzip.file(folder+"/annotation/annotation.xml",results[3]);
+	 newzip.file(folder+"/i18n/i18n.properties",results[4].replaceAll("TTTTTT",title).replaceAll("DDDDDD",description));
 	newzip.generateAsync({type:"base64"}).then(function (content) {
      		location.href="data:application/zip;base64," + content;
 });
@@ -86,7 +86,8 @@ async function fetchMultipleUrls(urls) {
 
 // List of URLs to fetch
 const urlsToFetch = [
-  'https://michaelnicholls.github.io/simpleFiori/manifest.json',
+  'https://michaelnicholls.github.io/simpleFiori/V2_manifest.json',
+  'https://michaelnicholls.github.io/simpleFiori/V4_manifest.json',
   'https://michaelnicholls.github.io/simpleFiori/Component.js',
   'https://michaelnicholls.github.io/simpleFiori/annotation.xml',
   'https://michaelnicholls.github.io/simpleFiori/i18n.properties',
