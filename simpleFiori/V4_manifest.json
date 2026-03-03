@@ -24,7 +24,7 @@
         }
       },
       "mainService": {
-        "uri": "/sap/opu/odata4/sap/BBBBBB/srvd/sap/SSSSSS/0001/",
+        "uri": "/sap/opu/odata4/sap/bbbbbb/srvd/sap/ssssss/0001/",
         "type": "OData",
         "settings": {
           "annotations": [
