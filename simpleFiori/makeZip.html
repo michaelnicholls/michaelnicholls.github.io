@@ -72,7 +72,7 @@ async function fetchMultipleUrls(urls) {
 	newmanifest = newmanifest.replaceAll("ssssss",service.toLowerCase()).replaceAll("bbbbbb",binding.toLowerCase());
 	 newzip.file(folder+"/manifest.json",newmanifest);
 	 newzip.file(folder+"/Component.js",results[2+checked].replaceAll("AAAAAA",appname));
-	 newzip.file(folder+"/annotations/annotation.xml",results[4+checked]("ssssss",service.toLowerCase()).replaceAll("bbbbbb",binding.toLowerCase());
+	 newzip.file(folder+"/annotations/annotation.xml",results[4+checked].replaceAll("ssssss",service.toLowerCase()).replaceAll("bbbbbb",binding.toLowerCase()));
 	 newzip.file(folder+"/i18n/i18n.properties",results[6].replaceAll("TTTTTT",title).replaceAll("DDDDDD",description));
 	newzip.generateAsync({type:"base64"}).then(function (content) {
      		location.href="data:application/zip;base64," + content;
