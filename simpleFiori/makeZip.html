@@ -71,9 +71,9 @@ async function fetchMultipleUrls(urls) {
 	newmanifest = results[checked].replaceAll("AAAAAA",appname).replaceAll("SSSSSS", service).replaceAll("BBBBBB", binding).replaceAll("VVVVVV", entity);
 	newmanifest = newmanifest.replaceAll("ssssss",service.toLowerCase()).replaceAll("bbbbbb",binding.toLowerCase());
 	 newzip.file(folder+"/manifest.json",newmanifest);
-	 newzip.file(folder+"/Component.js",results[2].replaceAll("AAAAAA",appname));
-	 newzip.file(folder+"/annotation/annotation.xml",results[3]);
-	 newzip.file(folder+"/i18n/i18n.properties",results[4].replaceAll("TTTTTT",title).replaceAll("DDDDDD",description));
+	 newzip.file(folder+"/Component.js",results[2+checked].replaceAll("AAAAAA",appname));
+	 newzip.file(folder+"/annotations/annotation.xml",results[4+checked]("ssssss",service.toLowerCase()).replaceAll("bbbbbb",binding.toLowerCase());
+	 newzip.file(folder+"/i18n/i18n.properties",results[6].replaceAll("TTTTTT",title).replaceAll("DDDDDD",description));
 	newzip.generateAsync({type:"base64"}).then(function (content) {
      		location.href="data:application/zip;base64," + content;
 });
@@ -90,8 +90,10 @@ async function fetchMultipleUrls(urls) {
 const urlsToFetch = [
   'https://michaelnicholls.github.io/simpleFiori/V2_manifest.json',
   'https://michaelnicholls.github.io/simpleFiori/V4_manifest.json',
-  'https://michaelnicholls.github.io/simpleFiori/Component.js',
-  'https://michaelnicholls.github.io/simpleFiori/annotation.xml',
+  'https://michaelnicholls.github.io/simpleFiori/V2_Component.js',
+  'https://michaelnicholls.github.io/simpleFiori/V4_Component.js',
+  'https://michaelnicholls.github.io/simpleFiori/V2_annotation.xml',
+  'https://michaelnicholls.github.io/simpleFiori/V4_annotation.xml',
   'https://michaelnicholls.github.io/simpleFiori/i18n.properties',
 
 
