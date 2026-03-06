@@ -74,6 +74,8 @@ async function fetchMultipleUrls(urls) {
 	 newzip.file(folder+"/Component.js",results[2+checked].replaceAll("AAAAAA",appname));
 	 newzip.file(folder+"/annotations/annotation.xml",results[4+checked].replaceAll("ssssss",service.toLowerCase()).replaceAll("bbbbbb",binding.toLowerCase()));
 	 newzip.file(folder+"/i18n/i18n.properties",results[6].replaceAll("TTTTTT",title).replaceAll("DDDDDD",description));
+	 newzip.file(folder+"/index.html",results[7].replaceAll("TTTTTT",title).replaceAll("AAAAAA",appname));
+
 	newzip.generateAsync({type:"base64"}).then(function (content) {
      		location.href="data:application/zip;base64," + content;
 });
@@ -94,7 +96,9 @@ const urlsToFetch = [
   'https://michaelnicholls.github.io/simpleFiori/V4_Component.js',
   'https://michaelnicholls.github.io/simpleFiori/V2_annotation.xml',
   'https://michaelnicholls.github.io/simpleFiori/V4_annotation.xml',
-  'https://michaelnicholls.github.io/simpleFiori/i18n.properties'
+  'https://michaelnicholls.github.io/simpleFiori/i18n.properties',
+  'https://michaelnicholls.github.io/simpleFiori/index.html'
+
 
 
 ];
