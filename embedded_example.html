@@ -1,0 +1,13 @@
+<script>
+document.write("<h2>Parameters passed</h2>");
+document.write("<table>");
+const queryString = window.location.search;
+
+// Create a URLSearchParams object from the query string
+const urlParams = new URLSearchParams(queryString);
+urlParams.forEach((value, key) => {
+  document.write(`<tr><td>${key}</td><td> ${value}</td></tr>`);
+});
+document.write("</table>");
+</script>	
+
