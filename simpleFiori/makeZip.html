@@ -1,4 +1,5 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.0/FileSaver.min.js"></script>
 <h2>ZIP file generator to build a quick Fiori app</h2>
 <form>
 <table>
@@ -76,8 +77,9 @@ async function fetchMultipleUrls(urls) {
 	 newzip.file(folder+"/i18n/i18n.properties",results[6].replaceAll("TTTTTT",title).replaceAll("DDDDDD",description));
 	 newzip.file(folder+"/index.html",results[7].replaceAll("TTTTTT",title).replaceAll("AAAAAA",appname));
 
-	newzip.generateAsync({type:"base64"}).then(function (content) {
-     		location.href="data:application/zip;base64," + content;
+	newzip.generateAsync({type:"blob"}).then(function (content) {
+ //    		location.href="data:application/zip;base64," + content;
+		saveAs(content,appname+".zip");
 });
     return results;
 
