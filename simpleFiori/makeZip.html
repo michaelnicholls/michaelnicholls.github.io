@@ -23,7 +23,8 @@
 <td>
 <input type ="radio" name="v"  value="V2"><label for="v2">V2</label>
 <input type ="radio" name="v" value="V4" checked><label for="v4">V4</label>
-<input type="checkbox" name="simple">
+<label for="simple">Simple list</label>
+<input type="checkbox" name="simple" id="simple">
   </td>
 <td><input type="button" onclick="go()" value="Generate ZIP"></td></tr>
 </table>
@@ -69,8 +70,11 @@ async function fetchMultipleUrls(urls) {
 		}
 		
 	}
+	var simple = document.getElementById("simple").checked;
 	var description = document.getElementById("description").value;
-	newmanifest = results[checked].replaceAll("AAAAAA",appname).replaceAll("SSSSSS", service).replaceAll("BBBBBB", binding).replaceAll("VVVVVV", entity);
+	var manifest = checked;
+	if (simple) {manifest = manifest+2; };
+	newmanifest = results[manifest].replaceAll("AAAAAA",appname).replaceAll("SSSSSS", service).replaceAll("BBBBBB", binding).replaceAll("VVVVVV", entity);
 	newmanifest = newmanifest.replaceAll("ssssss",service.toLowerCase()).replaceAll("bbbbbb",binding.toLowerCase());
 	 newzip.file(folder+"/manifest.json",newmanifest);
 	 newzip.file(folder+"/Component.js",results[4+checked].replaceAll("AAAAAA",appname));
