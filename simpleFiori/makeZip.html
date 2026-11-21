@@ -35,6 +35,20 @@
 After the ZIP file is downloaded, open it somewhere, and use SA38 to run /UI5/UI5_REPOSITORY_LOAD to upload from that folder.
 
 <script>
+params = new URLSearchParams(window.location.search);
+binding = params.get("b");
+service = params.get("s");
+entityset = params.get("e");
+version = params.get("v");
+
+if (binding !== null) { document.getElementById("appname").value = binding.toLowerCase();}
+if (binding !== null) { document.getElementById("binding").value = binding;}
+if (service !== null) { document.getElementById("service").value = service;}
+if (entityset !== null) { document.getElementById("entity").value = entityset;}
+if (version == "v2") { document.getElementsByName("v")[0].checked = true; }
+ 
+
+
 var newzip = new JSZip();
 
 async function fetchMultipleUrls(urls) {
