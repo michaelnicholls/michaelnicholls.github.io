@@ -35,6 +35,7 @@
 After the ZIP file is downloaded, open it and unpack the contents to a folder on your desktop. 
 <br>You can then use SA38 to run /UI5/UI5_REPOSITORY_LOAD to upload from that folder.
 <br><a id="webgui" href=""></a>
+<br><a id="test" href=""></a>
 
 <script>
 params = new URLSearchParams(window.location.search);
@@ -45,6 +46,7 @@ version = params.get("v");
 description = params.get("d");
 icf = params.get("i");
 client = params.get("c");
+bsp = params.get("bsp");
 
 
 if (binding !== null) { document.getElementById("appname").value = binding.toLowerCase();}
@@ -56,11 +58,16 @@ if (description !==null) { document.getElementById("title").value = description;
 if (icf !== null && client !== null)
 {
 tcode="&~transaction=*SA38%20RS38M-PROGRAMM=/ui5/ui5_repository_load;DYNP_OKCODE=STRT";
-anchor = document.getElementById("webgui");
-anchor.textContent = "Start /UI5/UI5_REPOSITORY_LOAD";
-anchor.href='javascript:window.open("'+icf+'/sap/bc/gui/sap/its/webgui?sap-client'+client+tcode+'","webgui","popup")';
+webgui = document.getElementById("webgui");
+webgui.textContent = "Start /UI5/UI5_REPOSITORY_LOAD";
+webgui.href='javascript:window.open("'+icf+'/sap/bc/gui/sap/its/webgui?sap-client'+client+tcode+'","webgui","popup")';
 }
 
+if (bsp !==null && bsp !== "") {
+test = document.getElementById("test");
+test.textContent="Test uploaded BSP";
+test.href='javascript:window.open("'+icf+'/sap/bc/ui5_ui5/sap/'+bsp+'/index.html'+'","test","popup")';
+};
 var newzip = new JSZip();
 
 async function fetchMultipleUrls(urls) {
