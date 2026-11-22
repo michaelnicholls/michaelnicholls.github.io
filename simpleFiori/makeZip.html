@@ -66,7 +66,7 @@ webgui.textContent = "Start /UI5/UI5_REPOSITORY_LOAD";
 webgui.href='javascript:window.open("'+icf+'/sap/bc/gui/sap/its/webgui?sap-client'+client+tcode+'","webgui","popup")';
 }
 
-if (bsp !==null && bsp !== "") {
+if (bsp !==null && bsp !== "" && bsp !== "null") {
 test = document.getElementById("test");
 test.textContent="Test uploaded BSP";
 test.href='javascript:window.open("'+icf+'/sap/bc/ui5_ui5/sap/'+bsp+'/index.html'+'","test","popup")';
