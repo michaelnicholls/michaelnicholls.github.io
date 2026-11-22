@@ -33,6 +33,7 @@
 </table>
 <br>
 After the ZIP file is downloaded, open it somewhere, and use SA38 to run /UI5/UI5_REPOSITORY_LOAD to upload from that folder.
+<br><a id="webgui" href=""></a>
 
 <script>
 params = new URLSearchParams(window.location.search);
@@ -41,6 +42,9 @@ service = params.get("s");
 entityset = params.get("e");
 version = params.get("v");
 description = params.get("d");
+icf = params.get("i");
+client = params.get("c");
+
 
 if (binding !== null) { document.getElementById("appname").value = binding.toLowerCase();}
 if (binding !== null) { document.getElementById("binding").value = binding;}
@@ -48,7 +52,12 @@ if (service !== null) { document.getElementById("service").value = service;}
 if (entityset !== null) { document.getElementById("entity").value = entityset;}
 if (version == "v2") { document.getElementsByName("v")[0].checked = true; }
 if (description !==null) { document.getElementById("title").value = description;document.getElementById("description").value = description; }
-
+if (icf !== null && client !== null)
+{
+anchor = document.getElementById("webgui");
+anchor.textContent = "Start SA38";
+anchor.href='javascript:window.open("'+icf+'/sap/bc/gui/sap/its/webgui?sap-client'+client+'","webgui","popup")';
+}
 
 var newzip = new JSZip();
 
