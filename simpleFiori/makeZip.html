@@ -40,13 +40,14 @@ binding = params.get("b");
 service = params.get("s");
 entityset = params.get("e");
 version = params.get("v");
+description = params.get("d");
 
 if (binding !== null) { document.getElementById("appname").value = binding.toLowerCase();}
 if (binding !== null) { document.getElementById("binding").value = binding;}
 if (service !== null) { document.getElementById("service").value = service;}
 if (entityset !== null) { document.getElementById("entity").value = entityset;}
 if (version == "v2") { document.getElementsByName("v")[0].checked = true; }
- 
+if (description !==null) { document.getElementById("title").value = description;document.getElementById("description").value = description; }
 
 
 var newzip = new JSZip();
