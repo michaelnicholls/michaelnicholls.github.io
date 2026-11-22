@@ -54,7 +54,7 @@ if (version == "v2") { document.getElementsByName("v")[0].checked = true; }
 if (description !==null) { document.getElementById("title").value = description;document.getElementById("description").value = description; }
 if (icf !== null && client !== null)
 {
-tcode="&~transaction=*SA38%20RS38M-PROGRAMM=/ui5/ui5_repository_load";
+tcode="&~transaction=*SA38%20RS38M-PROGRAMM=/ui5/ui5_repository_load;DYNP-OKCODE=STRT";
 anchor = document.getElementById("webgui");
 anchor.textContent = "Start SA38";
 anchor.href='javascript:window.open("'+icf+'/sap/bc/gui/sap/its/webgui?sap-client'+client+tcode+'","webgui","popup")';
