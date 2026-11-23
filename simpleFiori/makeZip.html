@@ -39,6 +39,12 @@ After the ZIP file is downloaded, open it and unpack the contents to a folder on
 <a id="webgui" href=""></a>
 <br>After uploading the BSP, it can be tested using SE80.
 <a id="test" href=""></a>
+<br>You need to add the app to a technical catalog.
+<a id="flpam" href=""></a>
+<br>It's a good idea to also add tiles to spaces and pages.
+<a id="spaces" href=""></a>
+<br>The technical catalog needs to be added to a role and assigned to some users.
+<a id="pfcg" href=""></a>
 
 <script>
 params = new URLSearchParams(window.location.search);
@@ -64,12 +70,27 @@ tcode="&~transaction=*SA38%20RS38M-PROGRAMM=/ui5/ui5_repository_load;DYNP_OKCODE
 webgui = document.getElementById("webgui");
 webgui.textContent = "Start /UI5/UI5_REPOSITORY_LOAD";
 webgui.href='javascript:window.open("'+icf+'/sap/bc/gui/sap/its/webgui?sap-client'+client+tcode+'","webgui","popup")';
+
+flpam = document.getElementById("flpam");
+flpam.textContent="Maintain technical catalogs";
+flpam.href='javascript:window.open("'+icf+'/sap/bc/ui5_ui5/sap/'+bsp+'/index.html'+'","test","popup")';
+
+spaces = document.getElementById("spaces");
+spaces.textContent="Manage spaces";
+spaces.href='javascript:window.open("'+icf+'/sap/bc/ui5_ui5/sap/'+bsp+'/index.html'+'","test","popup")';
+
+pfcg = document.getElementById("pfcg");
+tcode="&~transaction=PFCG";
+pfcg.textContent="Launch PFCG";
+pfcg.href='javascript:window.open("'+icf+'/sap/bc/gui/sap/its/webgui?sap-client'+client+tcode+'","pfcg","popup")';
+
 }
 
 if (bsp !==null && bsp !== "" && bsp !== "null") {
 test = document.getElementById("test");
 test.textContent="Test uploaded BSP";
 test.href='javascript:window.open("'+icf+'/sap/bc/ui5_ui5/sap/'+bsp+'/index.html'+'","test","popup")';
+
 };
 var newzip = new JSZip();
 
