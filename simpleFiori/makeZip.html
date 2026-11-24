@@ -35,8 +35,7 @@
 The Simple list checkbox will remove navigation to the details page from the list.
 <p>
 After the ZIP file is downloaded, open it and unpack the contents to a folder on your desktop. 
-<br>You can then use SA38 to run /UI5/UI5_REPOSITORY_LOAD to upload from that folder.
-<a id="webgui" href=""></a>
+<br>You can then use SA38 to run /UI5/UI5_REPOSITORY_LOAD to upload from that folder. Requires desktop SAPGUI.
 <br>After uploading the BSP, it can be tested using SE80.
 <a id="test" href=""></a>
 <br>You need to add the app to a technical catalog.
@@ -67,10 +66,11 @@ if (description !==null) { document.getElementById("title").value = description;
 if (icf !== null && client !== null)
 {
 tcode="&~transaction=*SA38%20RS38M-PROGRAMM=/ui5/ui5_repository_load;DYNP_OKCODE=STRT";
+/*
 webgui = document.getElementById("webgui");
 webgui.textContent = "Start /UI5/UI5_REPOSITORY_LOAD";
 webgui.href='javascript:window.open("'+icf+'/sap/bc/gui/sap/its/webgui?sap-client'+client+tcode+'","webgui","popup")';
-
+*/
 flpam = document.getElementById("flpam");
 flpam.textContent="Maintain technical catalogs";
 flpam.href='javascript:window.open("'+icf+'/sap/bc/webdynpro/sap/sui_tm_mm_app?sap-client'+client+'","flpam","popup")';
